@@ -43,59 +43,51 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
     public void startTransactionButtonOnClick(View view){
         //create alert dialog
-        AlertDialog build = new AlertDialog.Builder(HomeScreenActivity.this).create();
-        build.setTitle("Functionality not Available");
-        build.setMessage("The functionality of this button has not yet been implemented");
-        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+        AlertDialog.Builder build = new AlertDialog.Builder(this).
+        setMessage("This functionality has not yet been implemented yet.").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                dialog.dismiss();
             }
-        };
-        build.setButton("Ok", dialogListener);
+        });
+        build.create().show();
 
 
     }
     public void createEmployeeButtonOnClick(View view){
         //create alert dialog
-        AlertDialog build = new AlertDialog.Builder(HomeScreenActivity.this).create();
-        build.setTitle("Functionality not Available");
-        build.setMessage("The functionality of this button has not yet been implemented");
-        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+        AlertDialog.Builder build = new AlertDialog.Builder(this).
+                setMessage("This functionality has not yet been implemented yet.").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                dialog.dismiss();
             }
-        };
-        build.setButton("Ok", dialogListener);
+        });
+        build.create().show();
 
     }
     public void salesReportCashierButtonOnClick(View view){
         //create alert dialog
-        AlertDialog build = new AlertDialog.Builder(HomeScreenActivity.this).create();
-        build.setTitle("Functionality not Available");
-        build.setMessage("The functionality of this button has not yet been implemented");
-        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+        AlertDialog.Builder build = new AlertDialog.Builder(this).
+                setMessage("This functionality has not yet been implemented yet.").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                dialog.dismiss();
             }
-        };
-        build.setButton("Ok", dialogListener);
+        });
+        build.create().show();
 
     }
     public void salesReportProductButtonOnClick(View view){
         //create alert dialog
-        AlertDialog build = new AlertDialog.Builder(HomeScreenActivity.this).create();
-        build.setTitle("Functionality not Available");
-        build.setMessage("The functionality of this button has not yet been implemented");
-        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+        AlertDialog.Builder build = new AlertDialog.Builder(this).
+                setMessage("This functionality has not yet been implemented yet.").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                dialog.dismiss();
             }
-        };
-        build.setButton("Ok", dialogListener);
+        });
+        build.create().show();
 
     }
     public void logOutButtonOnClick(View view){

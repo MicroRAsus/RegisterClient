@@ -9,6 +9,11 @@
     <string name="button_dismiss">Dismiss</string>
     <string name="button_all_products">Show All Products</string>
     <string name="button_create_product">Create Product</string>
+    <string name="button_start_transaction">Start Transaction</string>
+    <string name="button_create_emplyee">Create Employee</string>
+    <string name="button_sales_report_cashier">Sales Report: Cashier</string>
+    <string name="button_sales_report_product">Sales Report: Product</string>
+    <string name="button_log_out">Log Out</string>
     <string name="text_view_landing_welcome">UARK Register App</string>
     <string name="text_view_products_lookup_code">LookupCode</string>
     <string name="text_view_products_count">0</string>
@@ -16,6 +21,7 @@
     <string name="text_view_label_products_lookup_code">Lookup Code:</string>
     <string name="text_view_label_products_count">Count:</string>
     <string name="text_view_label_products_created_on">Created On:</string>
+    <string name="text_view_main_menu">! What would you like to do next?</string>
     <string name="alert_dialog_products_loading">Loading Products</string>
     <string name="alert_dialog_product_save">Saving Product...</string>
     <string name="alert_dialog_product_delete">Deleting Product...</string>
@@ -28,4 +34,5 @@
     <string name="validation_product_lookup_code">Product lookup code may not be empty.</string>
     <string name="validation_product_count">Product count must be a number and may not be negative.</string>
     <string name="intent_extra_product">intent_extra_product</string>
+    <string name="title_activity_home_screen">HomeScreenActivity</string>
 </resources>

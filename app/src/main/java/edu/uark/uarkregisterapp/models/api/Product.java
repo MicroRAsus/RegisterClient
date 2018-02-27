@@ -16,7 +16,7 @@ import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
 public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Product> {
-	private UUID id;
+	private UUID id; //Product ID
 	public UUID getId() {
 		return this.id;
 	}

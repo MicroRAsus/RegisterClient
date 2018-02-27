@@ -35,4 +35,7 @@
     <string name="validation_product_count">Product count must be a number and may not be negative.</string>
     <string name="intent_extra_product">intent_extra_product</string>
     <string name="title_activity_home_screen">HomeScreenActivity</string>
+    <string name="title_activity_employee_login">EmployeeLoginActivity</string>
+    <string name="edit_text_employee_id">Employee ID</string>
+    <string name="edit_text_employee_password">Employee Password</string>
 </resources>

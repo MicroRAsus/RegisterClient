@@ -8,6 +8,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.content.Intent;
+import android.widget.EditText;
 
 public class EmployeeLoginActivity extends AppCompatActivity {
 
@@ -28,20 +30,14 @@ public class EmployeeLoginActivity extends AppCompatActivity {
         });
     }
 
+    private EditText getEmployeeIDEditText() {
+        return (EditText) this.findViewById(R.id.edit_text_employee_id);
+    }
+
     public void employeeLoginButtonOnClick(View view){
-        //create alert dialog
-        AlertDialog build = new AlertDialog.Builder(EmployeeLoginActivity.this).create();
-        build.setTitle("Functionality not Available");
-        build.setMessage("The functionality of this button has not yet been implemented");
-        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        };
-        build.setButton("Ok", dialogListener);
-
-
+        Intent intent = new Intent(this.getApplicationContext(), HomeScreenActivity.class);
+        intent.putExtra("employeeID", this.getEmployeeIDEditText().getText().toString());
+        this.startActivity(intent);
     }
 
 }

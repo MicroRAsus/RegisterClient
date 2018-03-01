@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_home_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="edu.uark.uarkregisterapp.HomeScreenActivity"
+    tools:showIn="@layout/activity_home_screen">
+
+    <TextView
+        android:id="@+id/text_main_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/text_view_main_menu"/>
+    <Button
+        android:id="@+id/button_start_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_main_menu"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/button_start_transaction"
+        android:onClick="startTransactionButtonOnClick"/>
+    <Button
+        android:id="@+id/button_create_employee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_start_transaction"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/button_create_emplyee"
+        android:onClick="createEmployeeButtonOnClick"/>
+    <Button
+        android:id="@+id/button_salesReport_cashier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_create_employee"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/button_sales_report_cashier"
+        android:onClick="salesReportCashierButtonOnClick"/>
+    <Button
+        android:id="@+id/button_salesReport_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_salesReport_cashier"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/button_sales_report_product"
+        android:onClick="salesReportProductButtonOnClick"/>
+    <Button
+        android:id="@+id/button_log_out"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/button_salesReport_product"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/button_log_out"
+        android:onClick="logOutButtonOnClick"/>
+
+
+
+</RelativeLayout>

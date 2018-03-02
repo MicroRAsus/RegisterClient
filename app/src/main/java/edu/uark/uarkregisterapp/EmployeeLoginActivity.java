@@ -34,17 +34,25 @@ public class EmployeeLoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        (new CheckEmployeeCount()).execute();
+    }
+
     private EditText getEmployeeIDEditText() {
         return (EditText) this.findViewById(R.id.edit_text_employee_id);
     }
 
     public void employeeLoginButtonOnClick(View view){
+        //(new CheckEmployeeCount()).execute();
         Intent intent = new Intent(this.getApplicationContext(), HomeScreenActivity.class);
         intent.putExtra("employeeID", this.getEmployeeIDEditText().getText().toString());
         this.startActivity(intent);
     }
 
-    private class CheckEmployeeCount extends AsyncTask<Integer, Void, ApiResponse<EmployeeCount>> {
+    private class CheckEmployeeCount extends AsyncTask<Void, Void, ApiResponse<EmployeeCount>> {
 
         @Override
         protected void onPreExecute() {
@@ -52,8 +60,8 @@ public class EmployeeLoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected ApiResponse<EmployeeCount> doInBackground(Integer... params) {
-            ApiResponse<EmployeeCount> apiResponse = (new EmployeeCountService()).getEmployeeCount();
+        protected ApiResponse<EmployeeCount> doInBackground(Void... params) {
+            ApiResponse<EmployeeCount> apiResponse = (new EmployeeCountService()).getEmployeeCount(employeeCount);
 
 //            if (apiResponse.isValidResponse()) {
 //                products.clear();
@@ -67,9 +75,12 @@ public class EmployeeLoginActivity extends AppCompatActivity {
         protected void onPostExecute(ApiResponse<EmployeeCount> apiResponse) {
             if (apiResponse.isValidResponse()) {
                 //productListAdapter.notifyDataSetChanged();
+                employeeCount = apiResponse.getData();
+                if (employeeCount.getCount() != 0) {
+                    this.loadingEmployeeCountAlert.dismiss();
+                }
             }
-
-            this.loadingEmployeeCountAlert.dismiss();
+            //this.loadingEmployeeCountAlert.dismiss();
 
             if (!apiResponse.isValidResponse()) {
                 new android.support.v7.app.AlertDialog.Builder(EmployeeLoginActivity.this).
@@ -89,10 +100,12 @@ public class EmployeeLoginActivity extends AppCompatActivity {
 
         private AlertDialog loadingEmployeeCountAlert;
 
-        private void RetrieveEmployeeCountTask() {
+        private CheckEmployeeCount() {
             this.loadingEmployeeCountAlert = new AlertDialog.Builder(EmployeeLoginActivity.this).
                     setMessage(R.string.alert_dialog_retrieving_employee_count).
                     create();
         }
     }
+
+    private EmployeeCount employeeCount;
 }

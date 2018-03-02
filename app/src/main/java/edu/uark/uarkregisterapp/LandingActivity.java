@@ -14,9 +14,10 @@ public class LandingActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_landing);
 	}
-
+	//NOTE: ***I have temporarily modified line 19 to transfer to my activity (employeeLogin) for testing ***
 	public void displayAllProductsButtonOnClick(View view) {
-		this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
+		this.startActivity(new Intent(getApplicationContext(), EmployeeLoginActivity.class));
+		//this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
 	}
 
 	public void createProductButtonOnClick(View view) {

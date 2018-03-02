@@ -18,16 +18,20 @@ import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.api.EmployeeCount;
 import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.enums.ApiObject;
+import edu.uark.uarkregisterapp.models.api.enums.EmployeeApiMethod;
+import edu.uark.uarkregisterapp.models.api.enums.EmployeeCountApiMethod;
 import edu.uark.uarkregisterapp.models.api.enums.ProductApiMethod;
 import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 
 public class EmployeeCountService extends BaseRemoteService {
 
 
-    public ApiResponse<EmployeeCount> getEmployeeCount() {
+    public ApiResponse<EmployeeCount> getEmployeeCount(EmployeeCount employeeCount) {
         return this.readEmployeeCountFromResponse(
                 this.<EmployeeCount>performGetRequest(
-                        this.buildPath()
+                        this.buildPath(
+                                (new PathElementInterface[] { EmployeeCountApiMethod.EMPLOYEE_COUNT})
+                        )
                 )
         );
     }
@@ -48,5 +52,5 @@ public class EmployeeCountService extends BaseRemoteService {
         return apiResponse;
     }
 
-    public EmployeeCountService() { super(ApiObject.PRODUCT); }
+    public EmployeeCountService() { super(ApiObject.EMPLOYEE); }
 }

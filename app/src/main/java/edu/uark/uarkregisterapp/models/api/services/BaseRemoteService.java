@@ -54,6 +54,31 @@ abstract class BaseRemoteService {
 		return connectionUrl;
 	}
 
+
+	//THIS IS A TEST CLASS BY COLE. I AM NOT AT ALL CERTAIN THAT IS WILL WORK/WON'T CAUSE ISSUES...
+	URL buildPath(PathElementInterface[] pathElements) {
+		StringBuilder completePath = (new StringBuilder(BASE_URL))
+				.append(this.apiObject.getPathValue());
+
+		for (PathElementInterface pathElement : pathElements) {
+			String pathEntry = pathElement.getPathValue();
+
+			if (!StringUtils.isBlank(pathEntry)) {
+				completePath.append(pathEntry).append(URL_JOIN);
+			}
+		}
+
+		URL connectionUrl;
+		try {
+			connectionUrl = new URL(completePath.toString());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			connectionUrl = null;
+		}
+
+		return connectionUrl;
+	}
+
 	<T extends Object> ApiResponse<T> performGetRequest(URL connectionUrl) {
 		ApiResponse<T> apiResponse = new ApiResponse<>();
 

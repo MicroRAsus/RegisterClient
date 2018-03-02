@@ -8,7 +8,7 @@ import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 
 public enum EmployeeCountApiMethod implements PathElementInterface {
     NONE(""),
-    BY_EMPLOYEE_ID("byEmployeeId");
+    EMPLOYEE_COUNT("EmployeeCount");
 
     @Override
     public String getPathValue() {

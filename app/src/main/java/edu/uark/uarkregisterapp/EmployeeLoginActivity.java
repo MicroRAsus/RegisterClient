@@ -54,6 +54,7 @@ public class EmployeeLoginActivity extends AppCompatActivity {
 
     private class CheckEmployeeCount extends AsyncTask<Void, Void, ApiResponse<EmployeeCount>> {
 
+
         @Override
         protected void onPreExecute() {
             this.loadingEmployeeCountAlert.show();
@@ -62,6 +63,20 @@ public class EmployeeLoginActivity extends AppCompatActivity {
         @Override
         protected ApiResponse<EmployeeCount> doInBackground(Void... params) {
             ApiResponse<EmployeeCount> apiResponse = (new EmployeeCountService()).getEmployeeCount(); //employeeCount : was in the parameters of .getEmployeeCount()
+
+            /*//Start Austin:
+            //We need to request an employee count from the webservices.
+            //Something along the lines of:
+            EmployeeCount temp;
+            temp = new EmployeeCount();
+            if(temp.getCount() <= 0) {
+                this.startActivity(new Intent(getApplicationContext(), CreateEmployeeScreen.class));
+            }
+	        else {
+                this.startActivity(new Intent(getApplicationContext(), EmployeeLoginActivity.class));
+            }
+            //But using ApiResponse
+            //End Austin*/
 
 //            if (apiResponse.isValidResponse()) {
 //                products.clear();

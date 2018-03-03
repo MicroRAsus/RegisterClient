@@ -71,6 +71,8 @@ public class EmployeeLogin implements ConvertToJsonInterface, LoadFromJsonInterf
         this.password = "";
     }
 
+
+
     // Cole: from what I understand, we do not need to pass the employee credentials between activities.
     // That is why I did not adapt the below constructor for this class.
 //    public EmployeeLogin(EmployeeTransition employeeTransition) {

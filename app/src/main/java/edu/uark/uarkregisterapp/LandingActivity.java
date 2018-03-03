@@ -32,18 +32,9 @@ public class LandingActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
     /*(Austin): Uncertain of how to check total employee count (value stored in server)
-    putting a note in the GroupMe.
+    putting a note in the GroupMe. Moved comment to EmployeeLoginActivity.java
      */
     public void goToEmployeeLoginOnClick(View view) {
-        //This logic should be somewhere in EmployeeLoginActivity.java
-	    /*EmployeeCount temp;
-        temp = new EmployeeCount();
-        if(temp.getCount() <= 0) {
-            this.startActivity(new Intent(getApplicationContext(), CreateEmployeeScreen.class));
-        }
-	    else {
-            this.startActivity(new Intent(getApplicationContext(), EmployeeLoginActivity.class));
-        }*/
         Intent intent = new Intent(getApplicationContext(), EmployeeLoginActivity.class);
         this.startActivity(intent);
     }

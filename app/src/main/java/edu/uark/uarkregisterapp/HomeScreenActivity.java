@@ -42,27 +42,13 @@ public class HomeScreenActivity extends AppCompatActivity {
         return (TextView) this.findViewById(R.id.text_main_menu);
     }
     public void startTransactionButtonOnClick(View view){
-        //create alert dialog
-        AlertDialog.Builder build = new AlertDialog.Builder(this).
-        setMessage("This functionality has not yet been implemented yet.").setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        build.create().show();
+        Intent intent = new Intent(this.getApplicationContext(), TransactionStartActivity.class);
+        this.startActivity(intent);
+        //Implemented by Austin
     }
     public void createEmployeeButtonOnClick(View view){
-        //create alert dialog
-        /*AlertDialog.Builder build = new AlertDialog.Builder(this).
-                setMessage("This functionality has not yet been implemented yet.").setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        build.create().show();*/
         this.startActivity(new Intent(getApplicationContext(), CreateEmployeeScreen.class));
+        //Implemented by Austin
     }
     public void salesReportCashierButtonOnClick(View view){
         //create alert dialog

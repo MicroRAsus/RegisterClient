@@ -41,14 +41,16 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CreateEmployeeScreen" />
 
-        <service
+       <!-- <service
             android:name=".models.api.services.EmployeeCount"
             android:enabled="true"
             android:exported="true" />
         <service
             android:name=".models.api.services.EmployeeCountService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />-->
+
+        <activity android:name=".TransactionStartActivity"></activity>
     </application>
 
 </manifest>

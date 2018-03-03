@@ -1,3 +1,4 @@
+
 package edu.uark.uarkregisterapp;
 
 import android.content.Intent;
@@ -10,38 +11,43 @@ import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
 public class LandingActivity extends AppCompatActivity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_landing);
-	}
-	//NOTE: ***I have temporarily modified line 19 to transfer to my activity (employeeLogin) for testing ***
-	public void displayAllProductsButtonOnClick(View view) {
-		this.startActivity(new Intent(getApplicationContext(), EmployeeLoginActivity.class));
-		//this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_landing);
+    }
+    //removed by Austin 3/2/18
+    public void displayAllProductsButtonOnClick(View view) {
+        this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
+    }
 
-	public void createProductButtonOnClick(View view) {
-		Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
+    public void createProductButtonOnClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
 
-		intent.putExtra(
-			getString(R.string.intent_extra_product),
-			new ProductTransition()
-		);
+        intent.putExtra(
+                getString(R.string.intent_extra_product),
+                new ProductTransition()
+        );
 
-		this.startActivity(intent);
-	}
+        this.startActivity(intent);
+    }
     /*(Austin): Uncertain of how to check total employee count (value stored in server)
     putting a note in the GroupMe.
      */
-	public void goToEmployeeLoginOnClick(View view) {
-	    EmployeeCount temp;
+    public void goToEmployeeLoginOnClick(View view) {
+        //This logic should be somewhere in EmployeeLoginActivity.java
+	    /*EmployeeCount temp;
         temp = new EmployeeCount();
         if(temp.getCount() <= 0) {
             this.startActivity(new Intent(getApplicationContext(), CreateEmployeeScreen.class));
         }
 	    else {
             this.startActivity(new Intent(getApplicationContext(), EmployeeLoginActivity.class));
-        }
-	}
+        }*/
+        Intent intent = new Intent(getApplicationContext(), EmployeeLoginActivity.class);
+        this.startActivity(intent);
+    }
+	/*
+	/(Austin)/
+	 */
 }

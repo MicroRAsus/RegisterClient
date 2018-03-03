@@ -24,14 +24,14 @@ public class HomeScreenActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         this.userName = this.getIntent().getStringExtra("extra.user.name");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
     }
     @Override
     protected void onResume(){
@@ -51,20 +51,18 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
         build.create().show();
-
-
     }
     public void createEmployeeButtonOnClick(View view){
         //create alert dialog
-        AlertDialog.Builder build = new AlertDialog.Builder(this).
+        /*AlertDialog.Builder build = new AlertDialog.Builder(this).
                 setMessage("This functionality has not yet been implemented yet.").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
-        build.create().show();
-
+        build.create().show();*/
+        this.startActivity(new Intent(getApplicationContext(), CreateEmployeeScreen.class));
     }
     public void salesReportCashierButtonOnClick(View view){
         //create alert dialog

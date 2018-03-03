@@ -11,20 +11,20 @@
 
     <EditText
         android:id="@+id/edit_text_employee_id"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:hint="@string/edit_text_employee_id"
-        android:inputType="text"/>
+        android:inputType="text|textPersonName" />
 
     <EditText
         android:id="@+id/edit_text_employee_password"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/edit_text_employee_id"
         android:layout_marginTop="30dp"
         android:hint="@string/edit_text_employee_password"
-        android:inputType="text"/>
+        android:inputType="text|textPassword" />
 
 
     <Button
@@ -34,7 +34,7 @@
         android:layout_below="@+id/edit_text_employee_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="@string/button_create_emplyee"
-        android:onClick="employeeLoginButtonOnClick"/>
+        android:onClick="employeeLoginButtonOnClick"
+        android:text="@string/button_create_emplyee" />
 
 </RelativeLayout>

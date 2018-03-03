@@ -61,7 +61,7 @@ public class EmployeeLoginActivity extends AppCompatActivity {
 
         @Override
         protected ApiResponse<EmployeeCount> doInBackground(Void... params) {
-            ApiResponse<EmployeeCount> apiResponse = (new EmployeeCountService()).getEmployeeCount(employeeCount);
+            ApiResponse<EmployeeCount> apiResponse = (new EmployeeCountService()).getEmployeeCount(); //employeeCount : was in the parameters of .getEmployeeCount()
 
 //            if (apiResponse.isValidResponse()) {
 //                products.clear();
@@ -76,7 +76,8 @@ public class EmployeeLoginActivity extends AppCompatActivity {
             if (apiResponse.isValidResponse()) {
                 //productListAdapter.notifyDataSetChanged();
                 employeeCount = apiResponse.getData();
-                if (employeeCount.getCount() != 0) {
+                //this.loadingEmployeeCountAlert.dismiss();
+                if (employeeCount.getCount() == 0) {
                     this.loadingEmployeeCountAlert.dismiss();
                 }
             }

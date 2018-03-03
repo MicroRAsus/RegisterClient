@@ -62,7 +62,7 @@ public class EmployeeCount implements ConvertToJsonInterface, LoadFromJsonInterf
     }
 
     public EmployeeCount() {
-        this.count = -1;
+        this.count = -10;
     }
 
 // Cole: from what I understand, we do not need to pass the employee count between activities.

@@ -26,7 +26,7 @@ import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 public class EmployeeCountService extends BaseRemoteService {
 
 
-    public ApiResponse<EmployeeCount> getEmployeeCount(EmployeeCount employeeCount) {
+    public ApiResponse<EmployeeCount> getEmployeeCount() { //EmployeeCount employeeCount : was in parameters
         return this.readEmployeeCountFromResponse(
                 this.<EmployeeCount>performGetRequest(
                         this.buildPath(

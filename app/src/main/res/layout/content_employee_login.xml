@@ -35,6 +35,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:onClick="employeeLoginButtonOnClick"
-        android:text="@string/button_create_emplyee" />
+        android:text="@string/button_employee_login" />
 
 </RelativeLayout>

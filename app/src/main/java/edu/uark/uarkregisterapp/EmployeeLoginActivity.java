@@ -12,12 +12,19 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.EditText;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Locale;
 
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
+import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.api.EmployeeCount;
+import edu.uark.uarkregisterapp.models.api.EmployeeLogin;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeCountService;
+import edu.uark.uarkregisterapp.models.api.services.EmployeeLoginService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeCountTransition;
+import edu.uark.uarkregisterapp.models.transition.EmployeeLoginTransition;
+import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 //import edu.uark.uarkregisterapp.models.transition.EmployeeLoginTransition;
 
 public class EmployeeLoginActivity extends AppCompatActivity {
@@ -30,6 +37,7 @@ public class EmployeeLoginActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         this.employeeCountTransition = new EmployeeCountTransition();
+        this.employeeTransition = new EmployeeTransition();
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -46,18 +54,71 @@ public class EmployeeLoginActivity extends AppCompatActivity {
         super.onResume();
 
         (new CheckEmployeeCount()).execute();
+        if(employeeCountTransition.getCount() == 0) {
+            Intent intent = new Intent(this.getApplicationContext(), CreateEmployeeScreen.class);
+            this.startActivity(intent);
+        }
+        //else if(employeeCountTransition.getCount() > 0) {
+
+        //}
+
     }
 
     private EditText getEmployeeIDEditText() {
         return (EditText) this.findViewById(R.id.edit_text_employee_id);
     }
 
+    private EditText getEmployeePassowrdEditText() {
+        return (EditText) this.findViewById(R.id.edit_text_employee_password);
+    }
+
     public void employeeLoginButtonOnClick(View view){
         //(new CheckEmployeeCount()).execute();
-        Intent intent = new Intent(this.getApplicationContext(), HomeScreenActivity.class);
-        intent.putExtra("employeeID", this.getEmployeeIDEditText().getText().toString());
-        this.startActivity(intent);
+        //Intent intent = new Intent(this.getApplicationContext(), HomeScreenActivity.class);
+        //intent.putExtra("employeeID", this.getEmployeeIDEditText().getText().toString());
+        //this.startActivity(intent);
+        if (!this.validateInput()) {
+        			return;
+        	}
+
+        //employeeTransition.setEmployeeID(this.getEmployeeIDEditText().getText().toString());
+        //employeeTransition.setPassWord(this.getEmployeePassowrdEditText().getText().toString());
+        (new CheckEmployeeCredentials()).execute();
     }
+
+    private boolean validateInput() {
+		boolean inputIsValid = true;
+		String validationMessage = StringUtils.EMPTY;
+
+		if (StringUtils.isBlank(this.getEmployeeIDEditText().getText().toString())) {
+			validationMessage = this.getString(R.string.validation_employee_id);
+			inputIsValid = false;
+		}
+
+		if (inputIsValid && StringUtils.isBlank(this.getEmployeePassowrdEditText().getText().toString())) {
+			validationMessage = this.getString(R.string.validation_employee_password);
+			inputIsValid = false;
+		}
+
+
+		if (!inputIsValid) {
+			new AlertDialog.Builder(this).
+				setMessage(validationMessage).
+				setPositiveButton(
+					R.string.button_dismiss,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dialog.dismiss();
+						}
+					}
+				).
+				create().
+				show();
+		}
+
+		return inputIsValid;
+	}
+
 
     private class CheckEmployeeCount extends AsyncTask<Void, Void, Boolean> {
 
@@ -74,7 +135,6 @@ public class EmployeeLoginActivity extends AppCompatActivity {
 
             if (apiResponse.isValidResponse()) {
                 employeeCountTransition.setCount(apiResponse.getData().getCount());
-                employeeCountTransition.setCount(10);
             }
             /*//Start Austin:
             //We need to request an employee count from the webservices.
@@ -100,19 +160,7 @@ public class EmployeeLoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean successfulResponse) {
-            //loadingEmployeeCountAlert.dismiss();
-            if (successfulResponse) {
-                if (employeeCountTransition.getCount() == 0) {
-                    //Intent intent = new Intent(getApplicationContext(), CreateEmployeeScreen.class);
-
-                }
-                else if(employeeCountTransition.getCount() != 0) {
-                    //Intent intent = new Intent(getApplicationContext(), LandingActivity.class);
-                    //this.startActivity(intent);
-                    loadingEmployeeCountAlert.dismiss();
-                }
-            }
-            //this.loadingEmployeeCountAlert.dismiss();
+            loadingEmployeeCountAlert.dismiss();
 
             if (!successfulResponse) {
                 new android.support.v7.app.AlertDialog.Builder(EmployeeLoginActivity.this).
@@ -139,42 +187,40 @@ public class EmployeeLoginActivity extends AppCompatActivity {
         }
     }
 
-    //    private class CheckEmployeeCredentials extends AsyncTask<Void, Void, ApiResponse<EmployeeCount>> {
-//
-//
-//        @Override
-//        protected void onPreExecute() {
-//            this.loadingEmployeeCountAlert.show();
-//        }
-//
-//        @Override
-//        protected ApiResponse<EmployeeCount> doInBackground(Void... params) {
-//            ApiResponse<EmployeeCount> apiResponse = (new EmployeeCountService()).getEmployeeCount(); //employeeCount : was in the parameters of .getEmployeeCount()
-//
-//            /*//Start Austin:
-//            //We need to request an employee count from the webservices.
-//            //Something along the lines of:
-//            EmployeeCount temp;
-//            temp = new EmployeeCount();
-//            if(temp.getCount() <= 0) {
-//                this.startActivity(new Intent(getApplicationContext(), CreateEmployeeScreen.class));
-//            }
-//	        else {
-//                this.startActivity(new Intent(getApplicationContext(), EmployeeLoginActivity.class));
-//            }
-//            //But using ApiResponse
-//            //End Austin*/
-//
-////            if (apiResponse.isValidResponse()) {
-////                products.clear();
-////                products.addAll(apiResponse.getData());
-////            }
-//
-//            return apiResponse;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(ApiResponse<EmployeeCount> apiResponse) {
+    private class CheckEmployeeCredentials extends AsyncTask<Void, Void, Boolean> {
+
+
+        @Override
+        protected void onPreExecute() {
+            this.loadingEmployeeCredentialsAlert.show();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            EmployeeLogin employeeLogin = (new EmployeeLogin()).
+                setEmployeeID(getEmployeeIDEditText().getText().toString()).
+                setPassWord(getEmployeePassowrdEditText().getText().toString());
+            //employeeLogin.setEmployeeID(employeeTransition.getEmployeeID());
+            //employeeLogin.setPassWord(employeeTransition.getPassWord());
+            ApiResponse<Employee> apiResponse = (new EmployeeLoginService()).getEmployee(employeeLogin);
+            if(apiResponse.isValidResponse()) {
+                employeeTransition.setId(apiResponse.getData().getId());
+                employeeTransition.setFirstName(apiResponse.getData().getFirstName());
+                employeeTransition.setLastName(apiResponse.getData().getLastName());
+                employeeTransition.setEmployeeID(apiResponse.getData().getEmployeeID());
+                employeeTransition.setActive(apiResponse.getData().getActive());
+                employeeTransition.setRole(apiResponse.getData().getRole());
+                employeeTransition.setManager(apiResponse.getData().getManager());
+                employeeTransition.setPassWord(apiResponse.getData().getPassWord());
+                employeeTransition.setCreatedOn(apiResponse.getData().getCreatedOn());
+            }
+
+            return apiResponse.isValidResponse();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean successfulResponse) {
+            loadingEmployeeCredentialsAlert.dismiss();
 //            if (apiResponse.isValidResponse()) {
 //                //productListAdapter.notifyDataSetChanged();
 //                employeeCount = apiResponse.getData();
@@ -184,32 +230,33 @@ public class EmployeeLoginActivity extends AppCompatActivity {
 //                    Intent intent = new Intent(getApplicationContext(), CreateEmployeeScreen.class);
 //                }
 //            }
-//            //this.loadingEmployeeCountAlert.dismiss();
-//
-//            if (!apiResponse.isValidResponse()) {
-//                new android.support.v7.app.AlertDialog.Builder(EmployeeLoginActivity.this).
-//                        setMessage(R.string.alert_dialog_employee_count_retrieval_failure).
-//                        setPositiveButton(
-//                                R.string.button_dismiss,
-//                                new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int id) {
-//                                        dialog.dismiss();
-//                                    }
-//                                }
-//                        ).
-//                        create().
-//                        show();
-//            }
-//        }
-//
-//        private AlertDialog loadingEmployeeCountAlert;
-//
-//        private CheckEmployeeCount() {
-//            this.loadingEmployeeCountAlert = new AlertDialog.Builder(EmployeeLoginActivity.this).
-//                    setMessage(R.string.alert_dialog_retrieving_employee_count).
-//                    create();
-//        }
-//    }
+            //this.loadingEmployeeCountAlert.dismiss();
+
+            if (!successfulResponse) {
+                new android.support.v7.app.AlertDialog.Builder(EmployeeLoginActivity.this).
+                        setMessage(R.string.alert_dialog_employee_login_failure).
+                        setPositiveButton(
+                                R.string.button_dismiss,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                    }
+                                }
+                        ).
+                        create().
+                        show();
+            }
+        }
+
+        private AlertDialog loadingEmployeeCredentialsAlert;
+
+        private CheckEmployeeCredentials() {
+            this.loadingEmployeeCredentialsAlert = new AlertDialog.Builder(EmployeeLoginActivity.this).
+                    setMessage(R.string.alert_dialog_retrieving_employee_credentials).
+                    create();
+        }
+    }
     //private EmployeeCount employeeCount;
     private EmployeeCountTransition employeeCountTransition;
+    private EmployeeTransition employeeTransition;
 }

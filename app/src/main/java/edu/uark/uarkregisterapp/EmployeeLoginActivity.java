@@ -132,11 +132,11 @@ public class EmployeeLoginActivity extends AppCompatActivity {
 
         private AlertDialog loadingEmployeeCountAlert;
 
-        /*private CheckEmployeeCount() {
+        private CheckEmployeeCount() {
             this.loadingEmployeeCountAlert = new AlertDialog.Builder(EmployeeLoginActivity.this).
                     setMessage(R.string.alert_dialog_retrieving_employee_count).
                     create();
-        }*/
+        }
     }
 
     //    private class CheckEmployeeCredentials extends AsyncTask<Void, Void, ApiResponse<EmployeeCount>> {

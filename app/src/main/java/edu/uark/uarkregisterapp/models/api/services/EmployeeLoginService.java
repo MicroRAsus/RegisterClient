@@ -17,11 +17,12 @@ import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 
 public class EmployeeLoginService extends BaseRemoteService {
 
+    String trash;
 
     public ApiResponse<Employee> getEmployee(EmployeeLogin employeeLogin) { //EmployeeCount employeeCount : was in parameters
         return this.readEmployeeFromResponse(
                 this.<Employee>performPostRequest(
-                        this.buildPath((new PathElementInterface[] { EmployeeLoginApiMethod.EMPLOYEE_LOGIN}))
+                        this.buildPath((new PathElementInterface[] { EmployeeLoginApiMethod.EMPLOYEE_LOGIN}), trash)
                         , employeeLogin.convertToJson()
                 )
         );

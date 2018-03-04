@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Employee;
@@ -38,6 +40,7 @@ public class EmployeeLoginActivity extends AppCompatActivity {
 
         this.employeeCountTransition = new EmployeeCountTransition();
         this.employeeTransition = new EmployeeTransition();
+        (new CheckEmployeeCount()).execute();
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -52,12 +55,13 @@ public class EmployeeLoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //(new CheckEmployeeCount()).execute();
 
-        (new CheckEmployeeCount()).execute();
-        if(employeeCountTransition.getCount() == 0) {
-            Intent intent = new Intent(this.getApplicationContext(), CreateEmployeeScreen.class);
-            this.startActivity(intent);
-        }
+        //Log.d("I HOPE THIS DISPLAYS!", "      " + employeeCountTransition.getCount());
+        //if(employeeCountTransition.getCount() == -100) {
+        //    Intent intent = new Intent(this.getApplicationContext(), CreateEmployeeScreen.class);
+        //    this.startActivity(intent);
+        //}
         //else if(employeeCountTransition.getCount() > 0) {
 
         //}
@@ -120,7 +124,7 @@ public class EmployeeLoginActivity extends AppCompatActivity {
 	}
 
 
-    private class CheckEmployeeCount extends AsyncTask<Void, Void, Boolean> {
+    private class CheckEmployeeCount extends AsyncTask<Void, Void, Integer> {
 
 
         @Override
@@ -129,40 +133,26 @@ public class EmployeeLoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected Integer doInBackground(Void... params) {
             ApiResponse<EmployeeCount> apiResponse = (new EmployeeCountService()).getEmployeeCount(); //employeeCount : was in the parameters of .getEmployeeCount()
-
+            //Log.d("I HOPE THIS DISPLAYS!", "    " + apiResponse.getData().getCount());
 
             if (apiResponse.isValidResponse()) {
-                employeeCountTransition.setCount(apiResponse.getData().getCount());
+                return (apiResponse.getData().getCount());
+                //Log.d("I HOPE THIS DISPLAYS!", "      " + employeeCountTransition.getCount());
             }
-            /*//Start Austin:
-            //We need to request an employee count from the webservices.
-            //Something along the lines of:
-            EmployeeCount temp;
-            temp = new EmployeeCount();
-            if(temp.getCount() <= 0) {
-                this.startActivity(new Intent(getApplicationContext(), CreateEmployeeScreen.class));
+            else {
+                return -100;
             }
-	        else {
-                this.startActivity(new Intent(getApplicationContext(), EmployeeLoginActivity.class));
-            }
-            //But using ApiResponse
-            //End Austin*/
 
-//            if (apiResponse.isValidResponse()) {
-//                products.clear();
-//                products.addAll(apiResponse.getData());
-//            }
-
-            return apiResponse.isValidResponse();
+            //return apiResponse.isValidResponse();
         }
 
         @Override
-        protected void onPostExecute(Boolean successfulResponse) {
+        protected void onPostExecute(Integer employeeCountValue) {
             loadingEmployeeCountAlert.dismiss();
-
-            if (!successfulResponse) {
+            //Log.d("I HOPE THIS DISPLAYS!", "    " + employeeCountValue);
+            if (employeeCountValue == -100) {
                 new android.support.v7.app.AlertDialog.Builder(EmployeeLoginActivity.this).
                         setMessage(R.string.alert_dialog_employee_count_retrieval_failure).
                         setPositiveButton(
@@ -175,6 +165,12 @@ public class EmployeeLoginActivity extends AppCompatActivity {
                         ).
                         create().
                         show();
+            }
+            else if(employeeCountValue <=0) {
+                employeeCountTransition.setCount(employeeCountValue);
+                Intent intent = new Intent(EmployeeLoginActivity.this, CreateEmployeeScreen.class);
+                EmployeeLoginActivity.this.startActivity(intent);
+                //Log.d("I HOPE THIS DISPLAYS!", "     " + employeeCountTransition.getCount());
             }
         }
 
@@ -245,6 +241,23 @@ public class EmployeeLoginActivity extends AppCompatActivity {
                         ).
                         create().
                         show();
+            }
+            else {
+                new android.support.v7.app.AlertDialog.Builder(EmployeeLoginActivity.this).
+                        setMessage(R.string.alert_dialog_employee_login_success).
+                        setPositiveButton(
+                                R.string.button_dismiss,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                    }
+                                }
+                        ).
+                        create().
+                        show();
+                Intent intent = new Intent(EmployeeLoginActivity.this, TransactionStartActivity.class);
+                EmployeeLoginActivity.this.startActivity(intent);
+
             }
         }
 

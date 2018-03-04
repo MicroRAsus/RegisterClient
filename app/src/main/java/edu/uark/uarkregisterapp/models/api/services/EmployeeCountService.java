@@ -25,14 +25,10 @@ import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 
 public class EmployeeCountService extends BaseRemoteService {
 
-
+    String trash;
     public ApiResponse<EmployeeCount> getEmployeeCount() { //EmployeeCount employeeCount : was in parameters
         return this.readEmployeeCountFromResponse(
-                this.<EmployeeCount>performGetRequest(
-                        this.buildPath(
-                                (new PathElementInterface[] { EmployeeCountApiMethod.EMPLOYEE_COUNT})
-                        )
-                )
+                this.<EmployeeCount>performGetRequest(this.buildPath((new PathElementInterface[] { EmployeeCountApiMethod.EMPLOYEE_COUNT}), trash))
         );
     }
 
@@ -48,7 +44,8 @@ public class EmployeeCountService extends BaseRemoteService {
                     (new EmployeeCount()).loadFromJson(rawJsonObject)
             );
         }
-
+        //Log.d("I HOPE THIS PRINTS!", "   " + (new EmployeeCount().loadFromJson(rawJsonObject).getCount()));
+        //Log.d("I HOPE THIS PRINTS!", "    " + apiResponse.getData().getCount());
         return apiResponse;
     }
 

@@ -8,7 +8,7 @@ import edu.uark.uarkregisterapp.models.api.interfaces.FieldNameInterface;
 
 public enum EmployeeCountFieldName implements FieldNameInterface {
 
-    COUNT("count");
+    COUNT("employeeCount");
 
     private String fieldName;
     public String getFieldName() {

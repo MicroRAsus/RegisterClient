@@ -17,8 +17,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.UUID;
 
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
-import edu.uark.uarkregisterapp.models.api.Product;
-import edu.uark.uarkregisterapp.models.api.services.ProductService;
+import edu.uark.uarkregisterapp.models.api.Employee;
+import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 
 //import edu.uark.uarkregisterapp.models.api.EmployeeCount;
@@ -31,7 +31,7 @@ public class CreateEmployeeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_employee_screen);
         //Austin:
-        //this.EmployeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_product));
+        this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_product));
         //Need to create employeeTransition object to pass to next screen see ProductViewActivity.java
 
     }
@@ -99,38 +99,43 @@ public class CreateEmployeeScreen extends AppCompatActivity {
         return inputIsValid;
     }
     //Austin
-    /*private class SaveCreatedEmployee extends AsyncTask<Void, Void, Boolean> {
-        @Override
+    private class SaveCreatedEmployee extends AsyncTask<Void, Void, Boolean> {
+        //Note: Uncomment this when the AlertDialog is ready to be used and all the methods are implemented
+        /*@Override
         protected void onPreExecute() {
-            this.
+            this.savingEmployeeAlert.show();
         }
+        private AlertDialog savingEmployeeAlert;*/
 
-        //@Override
-        //protected Boolean doInBackground(Void... params) {
-            /*Product product = (new Product()).
-                    setId(productTransition.getId()).
-                    setLookupCode(getProductLookupCodeEditText().getText().toString()).
-                    setCount(Integer.parseInt(getProductCountEditText().getText().toString()));
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Employee employee = (new Employee()).
+                    setId(employeeTransition.getId()).
+                    setFirstName(getEmployeeFirstName().getText().toString()).
+                    setLastName(getEmployeeLastName().getText().toString()).
+                    setPassWord(getEmployeePassword().getText().toString());
 
-            ApiResponse<Product> apiResponse = (
-                    (product.getId().equals(new UUID(0, 0)))
-                            ? (new ProductService()).createProduct(product)
-                            : (new ProductService()).updateProduct(product)
+                    ApiResponse<Employee> apiResponse = (
+                    (employee.getId().equals(new UUID(0, 0)))
+                            ? (new EmployeeService()).createEmployee(employee)
+                            : (new EmployeeService()).updateEmployee(employee)
             );
             //This if needs to be invoked for 3 fields instead of 2
             //e.g. First, Last, Password
             if (apiResponse.isValidResponse()) {
-                productTransition.setCount(apiResponse.getData().getCount());
-                productTransition.setLookupCode(apiResponse.getData().getLookupCode());
-            }*/
+                employeeTransition.setFirstName(apiResponse.getData().getFirstName());
+                employeeTransition.setLastName(apiResponse.getData().getLastName());
+                employeeTransition.setPassWord(apiResponse.getData().getPassWord());
+            }
 
-            //return apiResponse.isValidResponse();
-        //}
-    //}
+            return apiResponse.isValidResponse();
+        }
+    }
     /*Still need to implement server side code for this Screen,
     e.g. need to communicate each entered field for the Create
     button on press. Additionally, need to understand and resolve
     warnings considering Hardcoded Strings. Investigate using
     @string resource instead.
     */
+    private EmployeeTransition employeeTransition;
 }

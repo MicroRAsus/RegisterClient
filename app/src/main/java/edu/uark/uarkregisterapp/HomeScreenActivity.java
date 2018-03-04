@@ -1,8 +1,8 @@
 package edu.uark.uarkregisterapp;
 
+//Created by Russell Schuljak 3/4/2018
+
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -10,6 +10,9 @@ import android.content.Intent;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Parcelable;
+import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
+import edu.uark.uarkregisterapp.models.api.Employee;
 
 
 
@@ -22,16 +25,9 @@ public class HomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        this.userName = this.getIntent().getStringExtra("extra.user.name");
+        this.employeeTransition = this.getIntent().getParcelableExtra("intent_extra_employee");
+        this.userName = this.employeeTransition.getFirstName() + " " + this.employeeTransition.getLastName();
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
     @Override
     protected void onResume(){
@@ -83,4 +79,5 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     //receive emplooyee name for activity
     private String userName;
+    private EmployeeTransition employeeTransition;
 }

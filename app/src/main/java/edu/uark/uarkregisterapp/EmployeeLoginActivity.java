@@ -27,6 +27,7 @@ import edu.uark.uarkregisterapp.models.api.services.EmployeeLoginService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeCountTransition;
 import edu.uark.uarkregisterapp.models.transition.EmployeeLoginTransition;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
+import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 //import edu.uark.uarkregisterapp.models.transition.EmployeeLoginTransition;
 
 public class EmployeeLoginActivity extends AppCompatActivity {
@@ -210,7 +211,10 @@ public class EmployeeLoginActivity extends AppCompatActivity {
                 employeeTransition.setPassWord(apiResponse.getData().getPassWord());
                 employeeTransition.setCreatedOn(apiResponse.getData().getCreatedOn());
             }
-
+            //Log.d("Name of Login??", "     0" + employeeTransition.getFirstName() + employeeTransition.getLastName());
+            //Log.d("Name of Login??", "     0" + apiResponse.getData().getId() +"    " + apiResponse.getData().getFirstName() + "     " + apiResponse.getData().getLastName() +
+            //"      " + apiResponse.getData().getEmployeeID() + "      " + apiResponse.getData().getActive() + "       " + apiResponse.getData().getRole() + "        " + apiResponse.getData().getManager() +
+            //"       " + apiResponse.getData().getPassWord() + "      " + apiResponse.getData().getCreatedOn());
             return apiResponse.isValidResponse();
         }
 
@@ -243,6 +247,9 @@ public class EmployeeLoginActivity extends AppCompatActivity {
                         show();
             }
             else {
+                //Log.d("Name of Login??", "     0" + employeeTransition.getId() +"    " + employeeTransition.getFirstName() + "     " + employeeTransition.getLastName() +
+                //        "      " + employeeTransition.getEmployeeID() + "      " + employeeTransition.getActive() + "       " + employeeTransition.getRole() + "        " + employeeTransition.getManager() +
+                //        "       " + employeeTransition.getPassWord() + "      " + employeeTransition.getCreatedOn());
                 new android.support.v7.app.AlertDialog.Builder(EmployeeLoginActivity.this).
                         setMessage(R.string.alert_dialog_employee_login_success).
                         setPositiveButton(
@@ -255,7 +262,11 @@ public class EmployeeLoginActivity extends AppCompatActivity {
                         ).
                         create().
                         show();
-                Intent intent = new Intent(EmployeeLoginActivity.this, TransactionStartActivity.class);
+                Intent intent = new Intent(EmployeeLoginActivity.this, HomeScreenActivity.class);
+                intent.putExtra(
+                        getString(R.string.intent_extra_employee),
+                        employeeTransition
+                );
                 EmployeeLoginActivity.this.startActivity(intent);
 
             }

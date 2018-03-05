@@ -34,7 +34,7 @@
     <string name="alert_dialog_products_load_failure">Unable to load products listing.</string>
     <string name="alert_dialog_employee_count_retrieval_failure">Unable to retrieve the employee count.</string>
     <string name="alert_dialog_retrieving_employee_credentials">Verifying Credentials</string>
-    <string name="alert_dialog_employee_login_failure">Login Failed!.</string>
+    <string name="alert_dialog_employee_login_failure">Login Failed!</string>
     <string name="alert_dialog_employee_login_success">Login Successful!</string>
     <string name="alert_dialog_no_employees_exist">No Employees Exist</string>
     <string name="alert_dialog_no_employees_exist_message">Please create your first employee.</string>

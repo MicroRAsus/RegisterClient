@@ -29,21 +29,8 @@ public class EmployeeCount implements ConvertToJsonInterface, LoadFromJsonInterf
 
     @Override
     public EmployeeCount loadFromJson(JSONObject rawJsonObject) {
-        //String value = rawJsonObject.optString(EmployeeCountFieldName.Count.getFieldName());
-        //if (!StringUtils.isBlank(value)) {
-        //    this.id = UUID.fromString(value);
-        //}
 
         this.count = rawJsonObject.optInt(EmployeeCountFieldName.COUNT.getFieldName());
-
-        //value = rawJsonObject.optString(EmployeeCountFieldName.CREATED_ON.getFieldName());
-//        if (!StringUtils.isBlank(value)) {
-//            try {
-//                this.createdOn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US).parse(value);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//        }
 
         return this;
     }
@@ -65,12 +52,4 @@ public class EmployeeCount implements ConvertToJsonInterface, LoadFromJsonInterf
         this.count = -10;
     }
 
-// Cole: from what I understand, we do not need to pass the employee count between activities.
-// That is why I did not adapt the below constructor for this class.
-//    public EmployeeCount(ProductTransition productTransition) {
-//        this.id = productTransition.getId();
-//        this.count = productTransition.getCount();
-//        this.createdOn = productTransition.getCreatedOn();
-//        this.lookupCode = productTransition.getLookupCode();
-//    }
 }

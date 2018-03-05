@@ -44,8 +44,6 @@ public class EmployeeCountService extends BaseRemoteService {
                     (new EmployeeCount()).loadFromJson(rawJsonObject)
             );
         }
-        //Log.d("I HOPE THIS PRINTS!", "   " + (new EmployeeCount().loadFromJson(rawJsonObject).getCount()));
-        //Log.d("I HOPE THIS PRINTS!", "    " + apiResponse.getData().getCount());
         return apiResponse;
     }
 

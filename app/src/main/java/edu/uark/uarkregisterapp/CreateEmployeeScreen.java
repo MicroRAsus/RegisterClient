@@ -21,8 +21,6 @@ import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 
-//import edu.uark.uarkregisterapp.models.api.EmployeeCount;
-//import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
 public class CreateEmployeeScreen extends AppCompatActivity {
 
@@ -31,7 +29,7 @@ public class CreateEmployeeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_employee_screen);
         //Austin:
-        this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_product));
+        this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_employee));
         //Need to create employeeTransition object to pass to next screen see ProductViewActivity.java
 
     }
@@ -100,12 +98,10 @@ public class CreateEmployeeScreen extends AppCompatActivity {
     }
     //Austin
     private class SaveCreatedEmployee extends AsyncTask<Void, Void, Boolean> {
-        //Note: Uncomment this when the AlertDialog is ready to be used and all the methods are implemented
-        /*@Override
+        @Override
         protected void onPreExecute() {
             this.savingEmployeeAlert.show();
         }
-        private AlertDialog savingEmployeeAlert;*/
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -115,7 +111,7 @@ public class CreateEmployeeScreen extends AppCompatActivity {
                     setLastName(getEmployeeLastName().getText().toString()).
                     setPassWord(getEmployeePassword().getText().toString());
 
-                    ApiResponse<Employee> apiResponse = (
+            ApiResponse<Employee> apiResponse = (
                     (employee.getId().equals(new UUID(0, 0)))
                             ? (new EmployeeService()).createEmployee(employee)
                             : (new EmployeeService()).updateEmployee(employee)
@@ -130,12 +126,99 @@ public class CreateEmployeeScreen extends AppCompatActivity {
 
             return apiResponse.isValidResponse();
         }
-    }
+
     /*Still need to implement server side code for this Screen,
     e.g. need to communicate each entered field for the Create
     button on press. Additionally, need to understand and resolve
     warnings considering Hardcoded Strings. Investigate using
     @string resource instead.
     */
+
+        @Override
+        protected void onPostExecute(Boolean successfulSave) {
+            String message;
+
+            savingEmployeeAlert.dismiss();
+
+            if (successfulSave) {
+                message = getString(R.string.alert_dialog_employee_save_success);
+            } else {
+                message = getString(R.string.alert_dialog_employee_save_failure);
+            }
+
+            new AlertDialog.Builder(CreateEmployeeScreen.this).
+                    setMessage(message).
+                    setPositiveButton(
+                            R.string.button_dismiss,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                }
+                            }
+                    ).
+                    create().
+                    show();
+        }
+
+        private AlertDialog savingEmployeeAlert;
+
+        private SaveCreatedEmployee() {
+            this.savingEmployeeAlert = new AlertDialog.Builder(CreateEmployeeScreen.this).
+                    setMessage(R.string.alert_dialog_employee_save).
+                    create();
+        }
+
+
+    }
+    private class DeleteEmployeeTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected void onPreExecute() {
+            this.deletingEmployeeAlert.show();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            return (new EmployeeService())
+                    .deleteEmployee(employeeTransition.getId())
+                    .isValidResponse();
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean successfulSave) {
+            String message;
+
+            deletingEmployeeAlert.dismiss();
+
+            if (successfulSave) {
+                message = getString(R.string.alert_dialog_employee_delete_success);
+            } else {
+                message = getString(R.string.alert_dialog_employee_delete_failure);
+            }
+
+            new AlertDialog.Builder(CreateEmployeeScreen.this).
+                    setMessage(message).
+                    setPositiveButton(
+                            R.string.button_dismiss,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                    if (successfulSave) {
+                                        finish();
+                                    }
+                                }
+                            }
+                    ).
+                    create().
+                    show();
+        }
+
+        private AlertDialog deletingEmployeeAlert;
+
+        private DeleteEmployeeTask() {
+            this.deletingEmployeeAlert = new AlertDialog.Builder(CreateEmployeeScreen.this).
+                    setMessage(R.string.alert_dialog_employee_delete).
+                    create();
+        }
+    }
     private EmployeeTransition employeeTransition;
 }

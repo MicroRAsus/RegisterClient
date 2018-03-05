@@ -27,10 +27,16 @@
     <string name="alert_dialog_retrieving_employee_count">Retrieving employee count.</string>
     <string name="alert_dialog_product_save">Saving Product...</string>
     <string name="alert_dialog_product_delete">Deleting Product...</string>
+    <string name="alert_dialog_employee_save">Saving Employee...</string>
+    <string name="alert_dialog_employee_delete">Deleting Employee...</string>
     <string name="alert_dialog_product_save_success">The product was successfully saved.</string>
     <string name="alert_dialog_product_save_failure">An issue was encountered when attempting to save the product. The changes were not saved.</string>
     <string name="alert_dialog_product_delete_success">The product was successfully deleted.</string>
+    <string name="alert_dialog_employee_save_success">The employee was successfully saved.</string>
+    <string name="alert_dialog_employee_save_failure">An issue was encountered when attempting to save the employee. The changes were not saved.</string>
+    <string name="alert_dialog_employee_delete_success">The employee was successfully deleted.</string>
     <string name="alert_dialog_product_delete_failure">An issue was encountered when attempting to delete the product. You can try again to delete the product.</string>
+    <string name="alert_dialog_employee_delete_failure">An issue was encountered when attempting to delete the employee. You can try again to delete the employee.</string>
     <string name="alert_dialog_products_load_failure">Unable to load products listing.</string>
     <string name="alert_dialog_employee_count_retrieval_failure">Unable to retrieve the employee count.</string>
     <string name="alert_dialog_retrieving_employee_credentials">Verifying Credentials</string>

@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import org.apache.commons.lang3.StringUtils;
-
 import java.util.UUID;
 
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
@@ -38,12 +37,17 @@ public class CreateEmployeeScreen extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
-
-
+    //test this next
+    //Austin: Working on this:
     public void createEmployeeButtonOnClick(View view) {
+        if (!this.validateInput())
+        {
+            return;
+        }
+        (new SaveCreatedEmployee()).execute();
         //At this point it will only take you to the homescreenactivity.
-        Intent intent = new Intent(this.getApplicationContext(), TransactionStartActivity.class);
-        this.startActivity(intent);
+        //Intent intent = new Intent(this.getApplicationContext(), TransactionStartActivity.class);
+        //this.startActivity(intent);
     }
 
     private EditText getEmployeeFirstName() {
@@ -68,13 +72,13 @@ public class CreateEmployeeScreen extends AppCompatActivity {
             inputIsValid = false;
         }
 
-        if (!inputIsValid && StringUtils.isBlank(this.getEmployeeLastName().getText().toString())) {
+        if (StringUtils.isBlank(this.getEmployeeLastName().getText().toString())) {
             //validationMessage = this.getString(R.string.validation_product_count);
             validationMessage = "Employee Last Name may not be empty.";
             inputIsValid = false;
         }
 
-        if (!inputIsValid && StringUtils.isBlank(this.getEmployeePassword().getText().toString())) {
+        if (StringUtils.isBlank(this.getEmployeePassword().getText().toString())) {
             validationMessage = "Employee Password may not be empty.";
             inputIsValid = false;
         }
@@ -105,34 +109,34 @@ public class CreateEmployeeScreen extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            String val = ""+((int)(Math.random()*9000)+1000);
             Employee employee = (new Employee()).
-                    setId(employeeTransition.getId()).
                     setFirstName(getEmployeeFirstName().getText().toString()).
                     setLastName(getEmployeeLastName().getText().toString()).
-                    setPassWord(getEmployeePassword().getText().toString());
-
+                    setPassWord(getEmployeePassword().getText().toString()).
+                    setEmployeeID(val).
+                    setActive("1").
+                    setManager("0");
+            //Manager status and Active status currenty hardcoded above - Austin
             ApiResponse<Employee> apiResponse = (
                     (employee.getId().equals(new UUID(0, 0)))
                             ? (new EmployeeService()).createEmployee(employee)
                             : (new EmployeeService()).updateEmployee(employee)
             );
-            //This if needs to be invoked for 3 fields instead of 2
-            //e.g. First, Last, Password
+            //This if needs to be invoked for 6 fields ? - Austin
+            //e.g. First, Last, Password, active, Employee ID, Manager
             if (apiResponse.isValidResponse()) {
+
                 employeeTransition.setFirstName(apiResponse.getData().getFirstName());
                 employeeTransition.setLastName(apiResponse.getData().getLastName());
                 employeeTransition.setPassWord(apiResponse.getData().getPassWord());
+                employeeTransition.setActive(apiResponse.getData().getActive());
+                employeeTransition.setEmployeeID(apiResponse.getData().getEmployeeID());
+                employeeTransition.setManager(apiResponse.getData().getManager());
             }
 
             return apiResponse.isValidResponse();
         }
-
-    /*Still need to implement server side code for this Screen,
-    e.g. need to communicate each entered field for the Create
-    button on press. Additionally, need to understand and resolve
-    warnings considering Hardcoded Strings. Investigate using
-    @string resource instead.
-    */
 
         @Override
         protected void onPostExecute(Boolean successfulSave) {
@@ -167,9 +171,8 @@ public class CreateEmployeeScreen extends AppCompatActivity {
                     setMessage(R.string.alert_dialog_employee_save).
                     create();
         }
-
-
     }
+
     private class DeleteEmployeeTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected void onPreExecute() {

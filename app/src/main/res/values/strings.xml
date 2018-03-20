@@ -40,6 +40,7 @@
     <string name="alert_dialog_products_load_failure">Unable to load products listing.</string>
     <string name="alert_dialog_employee_count_retrieval_failure">Unable to retrieve the employee count.</string>
     <string name="alert_dialog_retrieving_employee_credentials">Verifying Credentials</string>
+    <string name="alert_dialog_create_employee_validation_password_invalid">Invalid password</string>
     <string name="alert_dialog_employee_login_failure">Login Failed!</string>
     <string name="alert_dialog_employee_login_success">Login Successful!</string>
     <string name="alert_dialog_no_employees_exist">No Employees Exist</string>
@@ -48,6 +49,8 @@
     <string name="validation_product_lookup_code">Product lookup code may not be empty.</string>
     <string name="validation_employee_id">Employee ID may not be empty.</string>
     <string name="validation_employee_password">Employee password may not be empty.</string>
+    <string name="validation_employee_first_name">Employee first name may not be empty.</string>
+    <string name="validation_employee_last_name">Employee last name may not be empty.</string>
     <string name="validation_product_count">Product count must be a number and may not be negative.</string>
     <string name="intent_extra_product">intent_extra_product</string>
     <string name="intent_extra_employee">intent_extra_employee</string>

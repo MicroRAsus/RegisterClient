@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
+
 public class ShoppingCartActivity extends AppCompatActivity {
+
+    private EmployeeTransition employeeTransition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +22,16 @@ public class ShoppingCartActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    /*public void cancelTransactionButtonOnClick(View view){
+    public void cancelTransactionButtonOnClick(View view){
         //Need to add code to delete cart prior to making activity switch
-        Intent intent = new Intent(this.getApplicationContext(), HomeScreenActivity.class);
-        this.startActivity(intent);
+        //Intent intent = new Intent(this.getApplicationContext(), HomeScreenActivity.class);
+        //this.startActivity(intent);
+        Intent intent = new Intent(ShoppingCartActivity.this, HomeScreenActivity.class);
+        intent.putExtra(
+                getString(R.string.intent_extra_employee),
+                employeeTransition
+        );
+        ShoppingCartActivity.this.startActivity(intent);
 
     }//^Austin Brown 3/30/18*/
 

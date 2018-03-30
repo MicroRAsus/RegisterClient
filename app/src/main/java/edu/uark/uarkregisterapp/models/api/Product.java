@@ -1,5 +1,6 @@
 package edu.uark.uarkregisterapp.models.api;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;

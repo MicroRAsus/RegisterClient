@@ -45,6 +45,7 @@
     <string name="alert_dialog_no_employees_exist">No Employees Exist</string>
     <string name="alert_dialog_no_employees_exist_message">Please create your first employee.</string>
     <string name="alert_dialog_product_delete_confirm">Are you sure you want to delete this product? This action cannot be undone.</string>
+    <string name="shopping_cart">Shopping Cart</string>
     <string name="validation_product_lookup_code">Product lookup code may not be empty.</string>
     <string name="validation_employee_id">Employee ID may not be empty.</string>
     <string name="validation_employee_password">Employee password may not be empty.</string>
@@ -55,4 +56,6 @@
     <string name="title_activity_employee_login">EmployeeLoginActivity</string>
     <string name="edit_text_employee_id">Employee ID</string>
     <string name="edit_text_employee_password">Employee Password</string>
+    <string name="cancel_transaction_button">Cancel</string>
+    <string name="checkout_button">Checkout</string>
 </resources>

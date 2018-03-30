@@ -39,19 +39,29 @@
             android:name=".EmployeeLoginActivity"
             android:label="@string/title_activity_employee_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CreateEmployeeScreen"
-            android:label="CreateEmployeeScreen"/>
+        <activity
+            android:name=".CreateEmployeeScreen"
+            android:label="CreateEmployeeScreen" />
+        <activity
+            android:name=".ShoppingCartActivity"
+            android:parentActivityName=".HomeScreenActivity"
+            android:label="ShoppingCartActivity" />
 
-       <!-- <service
+        <!--
+        <service
             android:name=".models.api.services.EmployeeCount"
             android:enabled="true"
             android:exported="true" />
         <service
             android:name=".models.api.services.EmployeeCountService"
             android:enabled="true"
-            android:exported="true" />-->
+            android:exported="true" />
+        -->
 
-        <activity android:name=".TransactionStartActivity"></activity>
+        <!--
+            <activity android:name=".TransactionStartActivity"
+            android:label="TransactionStartActivity"/>
+        -->
     </application>
 
 </manifest>

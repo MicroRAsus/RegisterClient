@@ -38,7 +38,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         return (TextView) this.findViewById(R.id.text_main_menu);
     }
     public void startTransactionButtonOnClick(View view){
-        Intent intent = new Intent(this.getApplicationContext(), TransactionStartActivity.class);
+        Intent intent = new Intent(this.getApplicationContext(), ShoppingCartActivity.class);
         this.startActivity(intent);
         //Implemented by Austin
     }

@@ -1,5 +1,5 @@
 package edu.uark.uarkregisterapp;
-
+//Created by Austin Brown
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,8 +20,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     public void cancelTransactionButtonOnClick(View view){
         //Need to add code to delete cart prior to making activity switch
-        //Intent intent = new Intent(this.getApplicationContext(), HomeScreenActivity.class);
-        //this.startActivity(intent);
+        Intent intent = new Intent(this.getApplicationContext(), HomeScreenActivity.class);
+        this.startActivity(intent);
         //Implemented by Austin
     }
 
@@ -29,5 +29,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
         //additionally need to invoke server side code prior to making activity switch
         //Intent intent = new Intent(this.getApplicationContext(), SummaryScreenActivity.class);
         //this.startActivity(intent);
+    }
+
+    public void findItemsButtonOnClick(View view){
+        Intent intent = new Intent(this.getApplicationContext(), FindProductsActivity.class);
+        this.startActivity(intent);
     }
 }

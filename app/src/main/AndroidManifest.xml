@@ -44,8 +44,8 @@
             android:label="CreateEmployeeScreen" />
         <activity
             android:name=".ShoppingCartActivity"
-            android:parentActivityName=".HomeScreenActivity"
-            android:label="ShoppingCartActivity" />
+            android:label="ShoppingCartActivity"
+            android:parentActivityName=".HomeScreenActivity" />
 
         <!--
         <service
@@ -58,10 +58,12 @@
             android:exported="true" />
         -->
 
+
         <!--
             <activity android:name=".TransactionStartActivity"
             android:label="TransactionStartActivity"/>
         -->
+        <activity android:name=".FindProductsActivity"></activity>
     </application>
 
 </manifest>

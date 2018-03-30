@@ -58,4 +58,7 @@
     <string name="edit_text_employee_password">Employee Password</string>
     <string name="cancel_transaction_button">Cancel</string>
     <string name="checkout_button">Checkout</string>
+    <string name="add_items_button">Add Items</string>
+    <string name="change_items_button">Find Items</string>
+    <string name="find_items_button">Find Items</string>
 </resources>

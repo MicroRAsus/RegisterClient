@@ -13,17 +13,27 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
 
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
-            <!--android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"-->
+        <!--android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"-->
 
 
     </android.support.design.widget.AppBarLayout>
+
+    <Button
+        android:id="@+id/change_quantity_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:onClick="changeQuantityButtonOnClick"
+        android:text="@string/change_quantity_button"
+        android:textAlignment="center"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <include layout="@layout/content_products_listing"/>
 

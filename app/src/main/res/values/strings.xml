@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">UARKRegisterApp</string>
+    <string name="app_name">UARK Register App</string>
     <string name="title_activity_products_listing">Products</string>
-    <string name="title_activity_product_view">ProductViewActivity</string>
+    <string name="title_activity_product_view">Product View</string>
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_save">Save</string>
@@ -52,8 +52,8 @@
     <string name="validation_product_count">Product count must be a number and may not be negative.</string>
     <string name="intent_extra_product">intent_extra_product</string>
     <string name="intent_extra_employee">intent_extra_employee</string>
-    <string name="title_activity_home_screen">HomeScreenActivity</string>
-    <string name="title_activity_employee_login">EmployeeLoginActivity</string>
+    <string name="title_activity_home_screen">Home Screen</string>
+    <string name="title_activity_employee_login">Employee Login</string>
     <string name="edit_text_employee_id">Employee ID</string>
     <string name="edit_text_employee_password">Employee Password</string>
     <string name="cancel_transaction_button">Cancel</string>
@@ -61,4 +61,5 @@
     <string name="add_items_button">Add Items</string>
     <string name="change_items_button">Find Items</string>
     <string name="find_items_button">Find Items</string>
+    <string name="change_quantity_button">Add/Remove Product</string>
 </resources>

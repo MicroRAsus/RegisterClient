@@ -32,7 +32,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomeScreenActivity"
-            android:label="@string/title_activity_home_screen"
+            android:label= "@string/title_activity_home_screen"
             android:parentActivityName=".LandingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -41,11 +41,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateEmployeeScreen"
-            android:label="CreateEmployeeScreen" />
+            android:label="Create Employee Screen" />
         <activity
             android:name=".ShoppingCartActivity"
             android:label="Shopping Cart"
             android:parentActivityName=".HomeScreenActivity" />
+
 
         <!--
         <service
@@ -63,12 +64,17 @@
             <activity android:name=".TransactionStartActivity"
             android:label="TransactionStartActivity"/>
         -->
-        <activity android:name=".FindProductsActivity"
+        <activity
+            android:name=".FindProductsActivity"
             android:label="Find Products"
-            android:parentActivityName=".ShoppingCartActivity"/>
-        <activity android:name=".SummaryScreenActivity"
+            android:parentActivityName=".ShoppingCartActivity" />
+        <activity
+            android:name=".SummaryScreenActivity"
             android:label="Summary Screen"
-            android:parentActivityName=".ShoppingCartActivity"/>
+            android:parentActivityName=".ShoppingCartActivity" />
+        <activity android:name=".ChangeQuantityActivity"
+            android:label="Add or Remove Items"
+            android:parentActivityName=".FindProductsActivity"/>
     </application>
 
 </manifest>

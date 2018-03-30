@@ -115,6 +115,12 @@ public class FindProductsActivity extends AppCompatActivity {
         }
     }
 
+    public void changeQuantityButtonOnClick(View view) {
+        //Temporary Workaround Button for Russel to work on his Implementation of ChangeQuantityActivity.
+        Intent intent = new Intent(this.getApplicationContext(), ChangeQuantityActivity.class);
+        this.startActivity(intent);
+    }
+
     private List<Product> products;
     private ProductListAdapter productListAdapter;
 }

@@ -44,7 +44,7 @@
             android:label="CreateEmployeeScreen" />
         <activity
             android:name=".ShoppingCartActivity"
-            android:label="ShoppingCartActivity"
+            android:label="Shopping Cart"
             android:parentActivityName=".HomeScreenActivity" />
 
         <!--
@@ -63,7 +63,12 @@
             <activity android:name=".TransactionStartActivity"
             android:label="TransactionStartActivity"/>
         -->
-        <activity android:name=".FindProductsActivity"></activity>
+        <activity android:name=".FindProductsActivity"
+            android:label="Find Products"
+            android:parentActivityName=".ShoppingCartActivity"/>
+        <activity android:name=".SummaryScreenActivity"
+            android:label="Summary Screen"
+            android:parentActivityName=".ShoppingCartActivity"/>
     </application>
 
 </manifest>

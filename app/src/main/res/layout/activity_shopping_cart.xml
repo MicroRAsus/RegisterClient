@@ -11,8 +11,9 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="edu.uark.uarkregisterapp.ShoppingCartActivity"
     tools:showIn="@layout/activity_shopping_cart">
-
-   <!-- <Button
+<!-- CREATED BY AUSTIN BROWN -->
+   <!-- CANCEL TRANSACTION BUTTON DOESNT WORK, gives error on line 29 of HomeScreenActivity.java because data is not persisted.
+   <Button
         android:id="@+id/button_cancel_transaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,8 +48,6 @@
         android:onClick="findItemsButtonOnClick"
         android:textAlignment="center"/>
 
-
-         />
     <!--android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu"
     android:textSize="16sp"/>-->
 </RelativeLayout>

@@ -3,7 +3,7 @@ package edu.uark.uarkregisterapp.models.transition;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lan3.StringUtils;
 
 import java.util.Date;
 import java.util.UUID;

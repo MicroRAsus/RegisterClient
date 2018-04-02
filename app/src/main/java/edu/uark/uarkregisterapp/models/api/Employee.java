@@ -3,6 +3,8 @@ package edu.uark.uarkregisterapp.models.api;
 /**
  * Created by Lyru on 2/27/2018 at 2:33PM
  */
+import android.os.Parcelable;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;

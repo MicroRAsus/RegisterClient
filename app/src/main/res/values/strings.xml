@@ -45,6 +45,8 @@
     <string name="alert_dialog_no_employees_exist">No Employees Exist</string>
     <string name="alert_dialog_no_employees_exist_message">Please create your first employee.</string>
     <string name="alert_dialog_product_delete_confirm">Are you sure you want to delete this product? This action cannot be undone.</string>
+    <string name="alert_dialog_transaction_storage_failure">An issue was encountered while attempting to store the transaction on the server.</string>
+    <string name="alert_dialog_transaction_storage_success">The transaction was stored successfully!</string>
     <string name="shopping_cart">Shopping Cart</string>
     <string name="validation_product_lookup_code">Product lookup code may not be empty.</string>
     <string name="validation_employee_id">Employee ID may not be empty.</string>
@@ -52,6 +54,7 @@
     <string name="validation_product_count">Product count must be a number and may not be negative.</string>
     <string name="intent_extra_product">intent_extra_product</string>
     <string name="intent_extra_employee">intent_extra_employee</string>
+    <string name="intent_extra_transaction">intent_extra_transaction</string>
     <string name="title_activity_home_screen">Home Screen</string>
     <string name="title_activity_employee_login">Employee Login</string>
     <string name="edit_text_employee_id">Employee ID</string>

@@ -3,7 +3,7 @@ package edu.uark.uarkregisterapp.models.transition;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.apache.commons.lan3.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 import java.util.UUID;
@@ -39,6 +39,13 @@ public class ProductTransition implements Parcelable {
 		this.count = count;
 		return this;
 	}
+	
+	private double price;
+	public double getPrice() { return this.price; }
+	public ProductTransition setPrice(double price) {
+		this.price = price;
+		return this;
+	}
 
 	private Date createdOn;
 	public Date getCreatedOn() {
@@ -54,6 +61,7 @@ public class ProductTransition implements Parcelable {
 		destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
 		destination.writeString(this.lookupCode);
 		destination.writeInt(this.count);
+		destination.writeDouble(this.price);
 		destination.writeLong(this.createdOn.getTime());
 	}
 
@@ -75,6 +83,7 @@ public class ProductTransition implements Parcelable {
 	public ProductTransition() {
 		this.count = -1;
 		this.id = new UUID(0, 0);
+		this.price = -1.00;
 		this.createdOn = new Date();
 		this.lookupCode = StringUtils.EMPTY;
 	}
@@ -82,6 +91,7 @@ public class ProductTransition implements Parcelable {
 	public ProductTransition(Product product) {
 		this.id = product.getId();
 		this.count = product.getCount();
+		this.price = product.getPrice();
 		this.createdOn = product.getCreatedOn();
 		this.lookupCode = product.getLookupCode();
 	}
@@ -90,7 +100,7 @@ public class ProductTransition implements Parcelable {
 		this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(productTransitionParcel.createByteArray()).execute();
 		this.lookupCode = productTransitionParcel.readString();
 		this.count = productTransitionParcel.readInt();
-
+		this.price = productTransitionParcel.readDouble();
 		this.createdOn = new Date();
 		this.createdOn.setTime(productTransitionParcel.readLong());
 	}

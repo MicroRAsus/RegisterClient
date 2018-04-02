@@ -106,6 +106,11 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 		this.transactionID = transactionTransition.gettransactionID();
 		this.employeeID = transactionTransition.getEmployeeID();
 		this.createdOn = transactionTransition.getCreatedOn();
+		this.totalPrice = 0;
+		for(Product element : transactionTransition.getProductArrayList())
+		{
+			totalPrice += element.getPrice();
+		}
 	}
 }
 

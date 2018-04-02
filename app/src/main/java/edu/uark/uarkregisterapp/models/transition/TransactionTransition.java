@@ -31,11 +31,11 @@ public class TransactionTransition implements Parcelable{
         return this;
     }
 
-    private String transactionID;
-    public String gettransactionID() {
+    private Integer transactionID;
+    public Integer gettransactionID() {
         return this.transactionID;
     }
-    public TransactionTransition settransactionID(String transactionID) {
+    public TransactionTransition settransactionID(Integer transactionID) {
         this.transactionID = transactionID;
         return this;
     }
@@ -49,13 +49,21 @@ public class TransactionTransition implements Parcelable{
         return this;
 
     }
-    private String employee;
-    public String getEmployee(){return this.employee;}
-    public TransactionTransition setEmployee(String employee){
-        this.employee = employee;
+    //By Cole on 4-2-18 We should only need a employee ID
+//    private String employee;
+//    public String getEmployee(){return this.employee;}
+//    public TransactionTransition setEmployee(String employee){
+//        this.employee = employee;
+//        return this;
+//    }
+    
+    private String employeeID;
+    public String getEmployeeID(){return this.employeeID;}
+    public TransactionTransition setEmployeeID(String employeeID){
+        this.employeeID = employeeID;
         return this;
     }
-
+    
     private ArrayList<Product> productArrayList;
 
     public ArrayList<Product> getProductArrayList() {
@@ -63,13 +71,14 @@ public class TransactionTransition implements Parcelable{
     }
     public TransactionTransition setProductArray(ArrayList<Product> arrayList){
         this.productArrayList = arrayList;
+        return this;
     }
 
     @Override
     public void writeToParcel(Parcel destination, int flags) {
         destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
-        destination.writeString(this.employee);
-        destination.writeString(this.transactionID);
+        destination.writeString(this.employeeID);
+        destination.writeInt(this.transactionID);
         destination.writeLong(this.createdOn.getTime());
         destination.writeList(this.productArrayList);
     }
@@ -91,15 +100,15 @@ public class TransactionTransition implements Parcelable{
 
     public TransactionTransition(){
         this.id = new UUID(0, 0);
-        this.transactionID = "";
+        this.transactionID = -100;
         this.createdOn = new Date();
-        this.employee = "";
+        this.employeeID = "";
         this.productArrayList = new ArrayList<Product>();
     }
     public TransactionTransition(Parcel transactionTransitionParcel){
         this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(transactionTransitionParcel.createByteArray()).execute();
-        this.transactionID = transactionTransitionParcel.readString();
-        this.employee = transactionTransitionParcel.readString();
+        this.transactionID = transactionTransitionParcel.readInt();
+        this.employeeID = transactionTransitionParcel.readString();
         this.createdOn = new Date();
         this.createdOn.setTime(transactionTransitionParcel.readLong());
         this.productArrayList = transactionTransitionParcel.readArrayList(Product.class.getClassLoader());

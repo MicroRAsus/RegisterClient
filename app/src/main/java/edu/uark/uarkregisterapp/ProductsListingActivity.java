@@ -63,7 +63,7 @@ public class ProductsListingActivity extends AppCompatActivity {
 		return (ListView) this.findViewById(R.id.list_view_products);
 	}
 
-	private class RetrieveProductsTask extends AsyncTask<Void, Void, ApiResponse<List<Product>>> {
+	protected class RetrieveProductsTask extends AsyncTask<Void, Void, ApiResponse<List<Product>>> {
 		@Override
 		protected void onPreExecute() {
 			this.loadingProductsAlert.show();

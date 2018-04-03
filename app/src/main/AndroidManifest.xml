@@ -32,26 +32,49 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomeScreenActivity"
-            android:label="@string/title_activity_home_screen"
+            android:label= "@string/title_activity_home_screen"
             android:parentActivityName=".LandingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EmployeeLoginActivity"
             android:label="@string/title_activity_employee_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CreateEmployeeScreen"
-            android:label="CreateEmployeeScreen"/>
+        <activity
+            android:name=".CreateEmployeeScreen"
+            android:label="Create Employee Screen" />
+        <activity
+            android:name=".ShoppingCartActivity"
+            android:label="Shopping Cart"
+            android:parentActivityName=".HomeScreenActivity" />
 
-       <!-- <service
+
+        <!--
+        <service
             android:name=".models.api.services.EmployeeCount"
             android:enabled="true"
             android:exported="true" />
         <service
             android:name=".models.api.services.EmployeeCountService"
             android:enabled="true"
-            android:exported="true" />-->
+            android:exported="true" />
+        -->
 
-        <activity android:name=".TransactionStartActivity"></activity>
+
+        <!--
+            <activity android:name=".TransactionStartActivity"
+            android:label="TransactionStartActivity"/>
+        -->
+        <activity
+            android:name=".FindProductsActivity"
+            android:label="Find Products"
+            android:parentActivityName=".ShoppingCartActivity" />
+        <activity
+            android:name=".SummaryScreenActivity"
+            android:label="Summary Screen"
+            android:parentActivityName=".ShoppingCartActivity" />
+        <activity android:name=".ChangeQuantityActivity"
+            android:label="Add or Remove Items"
+            android:parentActivityName=".FindProductsActivity"/>
     </application>
 
 </manifest>

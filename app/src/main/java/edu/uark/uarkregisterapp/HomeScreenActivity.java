@@ -26,19 +26,24 @@ public class HomeScreenActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         this.employeeTransition = this.getIntent().getParcelableExtra("intent_extra_employee");
-        this.userName = this.employeeTransition.getFirstName() + " " + this.employeeTransition.getLastName();
-
+        this.userName = /*this.employeeTransition.getFirstName() + */ " "; /* + this.employeeTransition.getLastName();*/
+        //We have to transition employee information to ShoppingCartActivity for this call to be valid upon returning
+        //to HomeScreenActivity, So I adjusted it to make all navigation work in the interim.  -Austin
     }
     @Override
     protected void onResume(){
         super.onResume();
+        //The app was crashing because userName could not be resolved when HomeScreenActivity was returned to from Shopping Cart
+        //Need to keep working on this, need to pass employee Transition to the Shopping cart Activity and back. See comment in onCreate.
+        //this.employeeTransition = this.getIntent().getParcelableExtra("intent_extra_employee");
+        //this.userName = this.employeeTransition.getFirstName() + " " + this.employeeTransition.getLastName();
         this.getUserNameTextView().setText("Hello " + this.userName + getResources().getString(R.string.text_view_main_menu));
     }
     private TextView getUserNameTextView(){
         return (TextView) this.findViewById(R.id.text_main_menu);
     }
     public void startTransactionButtonOnClick(View view){
-        Intent intent = new Intent(this.getApplicationContext(), TransactionStartActivity.class);
+        Intent intent = new Intent(this.getApplicationContext(), ShoppingCartActivity.class);
         this.startActivity(intent);
         //Implemented by Austin
     }

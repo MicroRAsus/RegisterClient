@@ -14,4 +14,17 @@
     <!-- INITIALLY CREATED BY AUSTIN BROWN -->
     <!-- ADD XML BELOW -->
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Transaction ID                                                      createdOn" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="OK"
+        android:onClick="returnHomeOnClick"/>
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Employee;
@@ -32,4 +33,11 @@ public class SummaryScreenActivity extends AppCompatActivity {
 	//^Austin Brown 3/30/18
 	
 	private TransactionTransition transactionTransition;
+
+	public void returnHomeOnClick(View view){
+		//returns to the home page of the application
+		Intent intent = new Intent(this.getApplicationContext(), HomeScreenActivity.class);
+		this.startActivity(intent);
+
+	}
 }

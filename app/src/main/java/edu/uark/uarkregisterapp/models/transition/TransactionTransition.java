@@ -22,25 +22,63 @@ import android.text.TextUtils;
 
 
 public class TransactionTransition implements Parcelable{
-    private UUID id;
-    public UUID getId() {
-        return this.id;
+//    private UUID id;
+//    public UUID getId() {
+//        return this.id;
+//    }
+//    public TransactionTransition setId(UUID id) {
+//        this.id = id;
+//        return this;
+//    }
+    
+    
+    private String cashierid;
+    private double amount;
+    private String transtype;
+    private int referenceid;
+	private int recordID;
+	private Date createdOn;
+    
+    public String getCashierID() {
+        return this.cashierid;
     }
-    public TransactionTransition setId(UUID id) {
-        this.id = id;
+    public TransactionTransition setCashierID(String cashierid) {
+        this.cashierid = cashierid;
+        return this;
+    }
+    
+    public double getAmount() {
+        return this.amount;
+    }
+    public TransactionTransition setAmount(double amount) {
+        this.amount = amount;
+        return this;
+    }
+    
+    public String getTransType() {
+        return this.transtype;
+    }
+    public TransactionTransition setTransType(String transtype) {
+        this.transtype = transtype;
+        return this;
+    }
+    
+    public int getReferenceID() {
+        return this.referenceid;
+    }
+    public TransactionTransition setReferenceID(int referenceid) {
+        this.referenceid = referenceid;
         return this;
     }
 
-    private Integer transactionID;
-    public Integer gettransactionID() {
-        return this.transactionID;
+    public int gettransactionID() {
+        return this.recordID;
     }
-    public TransactionTransition settransactionID(Integer transactionID) {
-        this.transactionID = transactionID;
+    public TransactionTransition settransactionID(int recordID) {
+        this.recordID = recordID;
         return this;
     }
-
-    private Date createdOn;
+    
     public Date getCreatedOn() {
         return this.createdOn;
     }
@@ -48,20 +86,6 @@ public class TransactionTransition implements Parcelable{
         this.createdOn = createdOn;
         return this;
 
-    }
-    //By Cole on 4-2-18 We should only need a employee ID
-//    private String employee;
-//    public String getEmployee(){return this.employee;}
-//    public TransactionTransition setEmployee(String employee){
-//        this.employee = employee;
-//        return this;
-//    }
-    
-    private String employeeID;
-    public String getEmployeeID(){return this.employeeID;}
-    public TransactionTransition setEmployeeID(String employeeID){
-        this.employeeID = employeeID;
-        return this;
     }
     
     private ArrayList<Product> productArrayList;
@@ -76,9 +100,12 @@ public class TransactionTransition implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel destination, int flags) {
-        destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
-        destination.writeString(this.employeeID);
-        destination.writeInt(this.transactionID);
+        //destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
+        destination.writeString(this.cashierid);
+        destination.writeDouble(this.amount);
+        destination.writeString(this.transtype);
+        destination.writeInt(this.referenceid);
+        destination.writeInt(this.recordID);
         destination.writeLong(this.createdOn.getTime());
         destination.writeList(this.productArrayList);
     }
@@ -99,16 +126,22 @@ public class TransactionTransition implements Parcelable{
     };
 
     public TransactionTransition(){
-        this.id = new UUID(0, 0);
-        this.transactionID = -100;
+    	this.cashierid = "";
+    	this.amount = 0.0;
+    	this.transtype = "";
+    	this.referenceid = 0;
+    	this.recordID = 0;
         this.createdOn = new Date();
-        this.employeeID = "";
         this.productArrayList = new ArrayList<Product>();
     }
+    
     public TransactionTransition(Parcel transactionTransitionParcel){
-        this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(transactionTransitionParcel.createByteArray()).execute();
-        this.transactionID = transactionTransitionParcel.readInt();
-        this.employeeID = transactionTransitionParcel.readString();
+        //this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(transactionTransitionParcel.createByteArray()).execute();
+	    this.cashierid = transactionTransitionParcel.readString();
+	    this.amount = transactionTransitionParcel.readInt();
+	    this.transtype = transactionTransitionParcel.readString();
+	    this.referenceid = transactionTransitionParcel.readInt();
+	    this.recordID = transactionTransitionParcel.readInt();
         this.createdOn = new Date();
         this.createdOn.setTime(transactionTransitionParcel.readLong());
         this.productArrayList = transactionTransitionParcel.readArrayList(Product.class.getClassLoader());

@@ -18,63 +18,58 @@ import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
 public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterface<Transaction> {
 	
-	private Integer transactionID;
-	private Date createdOn;
-	private double totalPrice;
-	private String employeeID;
+	private String cashierid;
+	private double amount;
+	private String transtype;
+	private int referenceid;
 	
-	public int getTransactionID() {
-		return this.transactionID;
+	public String getCashierID() {
+		return this.cashierid;
 	}
-	
-	public Transaction setTransactioinId(int transactionID) {
-		this.transactionID = transactionID;
+	public Transaction setCashierID(String cashierid) {
+		this.cashierid = cashierid;
 		return this;
 	}
 	
-	public Date getCreatedOn() {
-		return this.createdOn;
+	public double getAmount() {
+		return this.amount;
 	}
-	
-	public Transaction setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
+	public Transaction setAmount(double amount) {
+		this.amount = amount;
 		return this;
 	}
 	
-	public double getTotalPrice() {
-		return this.totalPrice;
+	public String getTransType() {
+		return this.transtype;
 	}
-	
-	public Transaction setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
+	public Transaction setTransType(String transtype) {
+		this.transtype = transtype;
 		return this;
 	}
 	
-	public String getEmployeeID() {
-		return this.employeeID;
+	public int getReferenceID() {
+		return this.referenceid;
 	}
-	
-	public Transaction setEmployeeID(String employeeID) {
-		this.employeeID = employeeID;
+	public Transaction setReferenceID(int referenceid) {
+		this.referenceid = referenceid;
 		return this;
 	}
 	
+	public Transaction() {
+		this.cashierid = "";
+		this.amount = 0.0;
+		this.transtype = "";
+		this.referenceid = 0;
+	}
 	
 	@Override
 	public Transaction loadFromJson(JSONObject rawJsonObject) {
 		
-		this.transactionID = rawJsonObject.optInt(TransactionFieldName.TRASACTION_ID.getFieldName());
-		this.totalPrice = rawJsonObject.optDouble(TransactionFieldName.TOTAL_PRICE.getFieldName());
-		this.employeeID = rawJsonObject.optString(TransactionFieldName.EMPLOYEE_ID.getFieldName());
+		this.cashierid = rawJsonObject.optString(TransactionFieldName.CASHIER_ID.getFieldName());
+		this.amount = rawJsonObject.optDouble(TransactionFieldName.AMOUNT.getFieldName());
+		this.transtype = rawJsonObject.optString(TransactionFieldName.TRANS_TYPE.getFieldName());
+		this.referenceid = rawJsonObject.optInt(TransactionFieldName.REFERENCE_ID.getFieldName());
 		
-		String value = rawJsonObject.optString(TransactionFieldName.CREATED_ON.getFieldName());
-		if (!StringUtils.isBlank(value)) {
-			try {
-				this.createdOn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US).parse(value);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
 		
 		return this;
 	}
@@ -84,10 +79,10 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 		JSONObject jsonObject = new JSONObject();
 		
 		try {
-			jsonObject.put(TransactionFieldName.TRASACTION_ID.getFieldName(), this.transactionID.toString());
-			jsonObject.put(TransactionFieldName.EMPLOYEE_ID.getFieldName(), this.employeeID);
-			jsonObject.put(TransactionFieldName.TOTAL_PRICE.getFieldName(), this.totalPrice);
-			jsonObject.put(TransactionFieldName.CREATED_ON.getFieldName(), (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)).format(this.createdOn));
+			jsonObject.put(TransactionFieldName.CASHIER_ID.getFieldName(), this.cashierid);
+			jsonObject.put(TransactionFieldName.AMOUNT.getFieldName(), this.amount);
+			jsonObject.put(TransactionFieldName.TRANS_TYPE.getFieldName(), this.transtype);
+			jsonObject.put(TransactionFieldName.REFERENCE_ID.getFieldName(), this.referenceid);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -95,21 +90,14 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 		return jsonObject;
 	}
 	
-	public Transaction() {
-		this.transactionID = -100;
-		this.employeeID = "";
-		this.totalPrice = 0;
-		this.createdOn = new Date();
-	}
-	
 	public Transaction(TransactionTransition transactionTransition) {
-		this.transactionID = transactionTransition.gettransactionID();
-		this.employeeID = transactionTransition.getEmployeeID();
-		this.createdOn = transactionTransition.getCreatedOn();
-		this.totalPrice = 0;
+		this.cashierid = transactionTransition.getCashierID();
+		this.amount = transactionTransition.getAmount();
+		this.transtype = transactionTransition.getTransType();
+		this.referenceid = transactionTransition.getReferenceID();
 		for(Product element : transactionTransition.getProductArrayList())
 		{
-			totalPrice += element.getPrice();
+			amount += element.getPrice();
 		}
 	}
 }

@@ -83,7 +83,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 //                transactionTransition.setCreatedOn(apiResponse.getData().getCreatedOn());
 //            }
 		
-		    //return apiResponse.isValidResponse();
+		   // return apiResponse.isValidResponse();
 		    
 		    
 		    //MUST BE CHANGED LATER!!

@@ -24,6 +24,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
+	    this.employeeTransition = this.getIntent().getParcelableExtra("intent_extra_employee");
     }
 
     @Override
@@ -77,7 +78,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
 		    //Log.d("message", String.format("The value of transtype is: %s", transactionTransition.getTransType()));
 		    //Temporary for testing
 		    transactionTransition.setAmount(50.01);
-		    Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
+            transactionTransition.setCashierID(employeeTransition.getEmployeeID());
+		    //Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
 		
 		    return apiResponse.isValidResponse();
 	    }
@@ -112,7 +114,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 					    ).
 					    create().
 					    show();
-			    Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
+			    //Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
 			
 			    Intent intent = new Intent(ShoppingCartActivity.this, SummaryScreenActivity.class);
 			    intent.putExtra(
@@ -132,7 +134,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
 				    create();
 	    }
     }
-        //Do we even need this here? --Cole
 	    private EmployeeTransition employeeTransition;
 	    private TransactionTransition transactionTransition = new TransactionTransition();
 }

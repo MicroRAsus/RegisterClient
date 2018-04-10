@@ -44,6 +44,10 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
     public void startTransactionButtonOnClick(View view){
         Intent intent = new Intent(this.getApplicationContext(), ShoppingCartActivity.class);
+        intent.putExtra(
+                getString(R.string.intent_extra_employee),
+                employeeTransition
+        );
         this.startActivity(intent);
         //Implemented by Austin
     }

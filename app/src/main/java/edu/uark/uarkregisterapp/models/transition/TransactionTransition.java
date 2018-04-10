@@ -22,16 +22,7 @@ import android.text.TextUtils;
 
 
 public class TransactionTransition implements Parcelable{
-//    private UUID id;
-//    public UUID getId() {
-//        return this.id;
-//    }
-//    public TransactionTransition setId(UUID id) {
-//        this.id = id;
-//        return this;
-//    }
-    
-    
+	
     private String cashierid;
     private double amount;
     private String transtype;
@@ -138,7 +129,7 @@ public class TransactionTransition implements Parcelable{
     public TransactionTransition(Parcel transactionTransitionParcel){
         //this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(transactionTransitionParcel.createByteArray()).execute();
 	    this.cashierid = transactionTransitionParcel.readString();
-	    this.amount = transactionTransitionParcel.readInt();
+	    this.amount = transactionTransitionParcel.readDouble();
 	    this.transtype = transactionTransitionParcel.readString();
 	    this.referenceid = transactionTransitionParcel.readInt();
 	    this.recordID = transactionTransitionParcel.readInt();

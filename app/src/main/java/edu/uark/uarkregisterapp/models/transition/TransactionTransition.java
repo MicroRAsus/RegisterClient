@@ -71,10 +71,10 @@ public class TransactionTransition implements Parcelable{
         return this;
     }
 
-    public int gettransactionID() {
+    public int getRecordID() {
         return this.recordID;
     }
-    public TransactionTransition settransactionID(int recordID) {
+    public TransactionTransition setRecordID(int recordID) {
         this.recordID = recordID;
         return this;
     }
@@ -126,9 +126,9 @@ public class TransactionTransition implements Parcelable{
     };
 
     public TransactionTransition(){
-    	this.cashierid = "";
+    	this.cashierid = "0";
     	this.amount = 0.0;
-    	this.transtype = "";
+    	this.transtype = "S";
     	this.referenceid = 0;
     	this.recordID = 0;
         this.createdOn = new Date();
@@ -145,6 +145,5 @@ public class TransactionTransition implements Parcelable{
         this.createdOn = new Date();
         this.createdOn.setTime(transactionTransitionParcel.readLong());
         this.productArrayList = transactionTransitionParcel.readArrayList(Product.class.getClassLoader());
-
     }
 }

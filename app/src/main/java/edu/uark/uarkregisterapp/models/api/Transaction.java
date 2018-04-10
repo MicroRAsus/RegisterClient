@@ -26,6 +26,7 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 	public String getCashierID() {
 		return this.cashierid;
 	}
+	
 	public Transaction setCashierID(String cashierid) {
 		this.cashierid = cashierid;
 		return this;
@@ -34,6 +35,7 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 	public double getAmount() {
 		return this.amount;
 	}
+	
 	public Transaction setAmount(double amount) {
 		this.amount = amount;
 		return this;
@@ -42,6 +44,7 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 	public String getTransType() {
 		return this.transtype;
 	}
+	
 	public Transaction setTransType(String transtype) {
 		this.transtype = transtype;
 		return this;
@@ -50,15 +53,16 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 	public int getReferenceID() {
 		return this.referenceid;
 	}
+	
 	public Transaction setReferenceID(int referenceid) {
 		this.referenceid = referenceid;
 		return this;
 	}
 	
 	public Transaction() {
-		this.cashierid = "";
-		this.amount = 0.0;
-		this.transtype = "";
+		this.cashierid = "0";
+		this.amount = 50.01;
+		this.transtype = "S";
 		this.referenceid = 0;
 	}
 	

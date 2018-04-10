@@ -7,10 +7,13 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Transaction;
+import edu.uark.uarkregisterapp.models.api.TransactionConfirmation;
+import edu.uark.uarkregisterapp.models.api.services.StoreTransactionService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
@@ -42,10 +45,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }//^Austin Brown 3/30/18*/
 
     public void checkoutButtonOnClick(View view){
-        //additionally need to invoke server side code prior to making activity switch
-	    //Perhaps permanently removed by cole
-        //Intent intent = new Intent(this.getApplicationContext(), SummaryScreenActivity.class);
-        //this.startActivity(intent);
 	    (new StoreTransactionOnServer()).execute();
     }
     //^Austin Brown 3/30/18
@@ -67,27 +66,20 @@ public class ShoppingCartActivity extends AppCompatActivity {
 	
 	    @Override
 	    protected Boolean doInBackground(Void... params) {
-		    Transaction transaction = (new Transaction(transactionTransition));
-		
-		    //To be adapted by Cole later
-//            ApiResponse<Transaction> apiResponse = (new StoreTransactionS()).getEmployee(employeeLogin);
-//            if(apiResponse.isValidResponse()) {
-//                transactionTransition.setId(apiResponse.getData().getId());
-//                transactionTransition.setFirstName(apiResponse.getData().getFirstName());
-//                transactionTransition.setLastName(apiResponse.getData().getLastName());
-//                transactionTransition.setEmployeeID(apiResponse.getData().getEmployeeID());
-//                transactionTransition.setActive(apiResponse.getData().getActive());
-//                transactionTransition.setRole(apiResponse.getData().getRole());
-//                transactionTransition.setManager(apiResponse.getData().getManager());
-//                transactionTransition.setPassWord(apiResponse.getData().getPassWord());
-//                transactionTransition.setCreatedOn(apiResponse.getData().getCreatedOn());
-//            }
-		
-		   // return apiResponse.isValidResponse();
+		    Transaction transaction = new Transaction(transactionTransition);
+		    //Log.d("message", String.format("The value of transtype is: %s", transaction.getTransType()));
 		    
-		    
-		    //MUST BE CHANGED LATER!!
-		    return true;
+            ApiResponse<TransactionConfirmation> apiResponse = (new StoreTransactionService()).getTransactionConfirmation(transaction);
+            if(apiResponse.isValidResponse()) {
+                transactionTransition.setRecordID(apiResponse.getData().getRecordID());
+                transactionTransition.setCreatedOn(apiResponse.getData().getCreatedOn());
+            }
+		    //Log.d("message", String.format("The value of transtype is: %s", transactionTransition.getTransType()));
+		    //Temporary for testing
+		    transactionTransition.setAmount(50.01);
+		    Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
+		
+		    return apiResponse.isValidResponse();
 	    }
 	
 	    @Override
@@ -120,6 +112,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 					    ).
 					    create().
 					    show();
+			    Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
 			
 			    Intent intent = new Intent(ShoppingCartActivity.this, SummaryScreenActivity.class);
 			    intent.putExtra(
@@ -141,7 +134,5 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
         //Do we even need this here? --Cole
 	    private EmployeeTransition employeeTransition;
-     
-     
-	    private TransactionTransition transactionTransition;
+	    private TransactionTransition transactionTransition = new TransactionTransition();
 }

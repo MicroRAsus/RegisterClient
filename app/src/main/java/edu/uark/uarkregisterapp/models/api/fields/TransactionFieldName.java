@@ -3,11 +3,12 @@ package edu.uark.uarkregisterapp.models.api.fields;
 import edu.uark.uarkregisterapp.models.api.interfaces.FieldNameInterface;
 
 public enum TransactionFieldName implements FieldNameInterface {
-	RECORD_ID ("recordid"),
-	CASHIER_ID("cashierid"),
+	RECORD_ID ("recordID"),
+	CREATED_ON("createdOn"),
+	CASHIER_ID("cashierID"),
 	AMOUNT("amount"),
-	TRANS_TYPE("transtype"),
-	REFERENCE_ID("referenceid");
+	TRANS_TYPE("transType"),
+	REFERENCE_ID("referenceID");
 	
 	private String fieldName;
 	public String getFieldName() {

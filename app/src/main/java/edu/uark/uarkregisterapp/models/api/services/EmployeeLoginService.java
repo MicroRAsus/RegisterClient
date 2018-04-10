@@ -19,7 +19,7 @@ public class EmployeeLoginService extends BaseRemoteService {
 
     String trash;
 
-    public ApiResponse<Employee> getEmployee(EmployeeLogin employeeLogin) { //EmployeeCount employeeCount : was in parameters
+    public ApiResponse<Employee> getEmployee(EmployeeLogin employeeLogin) {
         return this.readEmployeeFromResponse(
                 this.<Employee>performPostRequest(
                         this.buildPath((new PathElementInterface[] { EmployeeLoginApiMethod.EMPLOYEE_LOGIN}), trash)

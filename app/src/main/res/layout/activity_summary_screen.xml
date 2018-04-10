@@ -20,6 +20,23 @@
         android:layout_height="wrap_content"
         android:text="Transaction ID                                                      createdOn" />
 
+    <ListView
+        android:id="@+id/content_products_listing"
+        android:layout_width="wrap_content"
+        android:layout_height="527dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:entries="@string/shopping_cart" />
+
+    <TextView
+        android:id="@+id/text_transaction_createdOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="260dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/text_view_transaction_createdOn"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,4 +44,5 @@
         android:layout_alignParentRight="true"
         android:text="OK"
         android:onClick="returnHomeOnClick"/>
+
 </RelativeLayout>

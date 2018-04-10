@@ -23,6 +23,7 @@
     <string name="text_view_label_products_count">Count:</string>
     <string name="text_view_label_products_created_on">Created On:</string>
     <string name="text_view_main_menu">! What would you like to do next?</string>
+    <string name="text_view_transaction_createdOn">Placeholder</string>
     <string name="alert_dialog_products_loading">Loading Products</string>
     <string name="alert_dialog_retrieving_employee_count">Retrieving employee count.</string>
     <string name="alert_dialog_product_save">Saving Product...</string>

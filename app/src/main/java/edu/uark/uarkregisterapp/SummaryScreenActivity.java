@@ -27,6 +27,9 @@ import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 import edu.uark.uarkregisterapp.adapters.TransactionListAdapter;
 
 public class SummaryScreenActivity extends AppCompatActivity {
+	Date createdOn;
+	int refId;
+	double amount;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,9 @@ public class SummaryScreenActivity extends AppCompatActivity {
 		this.transactionTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_transaction));
 		//Log.d("message", String.format("The value of transtype is: %s", transactionTransition.getTransType()));
 		Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
-
+		this.createdOn = this.transactionTransition.getCreatedOn();
+		this.refId = this.transactionTransition.getReferenceID();
+		this.amount = this.transactionTransition.getAmount();
 		/*Put transaction info into list
 		this.transaction = new ArrayList<>();
 		this.transactionListAdapter = new TransactionListAdapter(this, this.transaction);
@@ -46,13 +51,24 @@ public class SummaryScreenActivity extends AppCompatActivity {
 	}
 	//^Austin Brown 3/30/18
 
-	/*private TextView getCreatedOnTextView(){
+	private TextView getCreatedOnTextView(){
 		return (TextView) this.findViewById(R.id.text_transaction_createdOn);
-	}*/
+	}
+
+	private TextView getReferenceIdTextView(){
+		return (TextView) this.findViewById(R.id.text_transaction_Id);
+	}
+
+	private TextView getAmountTextView(){
+		return (TextView) this.findViewById(R.id.text_transaction_amount);
+	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		this.getCreatedOnTextView().setText(dateToString(this.createdOn));
+		this.getReferenceIdTextView().setText(Integer.toString(this.refId));
+		this.getAmountTextView().setText(Double.toString(this.amount));
 	}
 	//^Austin Brown 3/30/18
 
@@ -63,7 +79,7 @@ public class SummaryScreenActivity extends AppCompatActivity {
 	//private String createdOn = dateToString(transactionTransition.getCreatedOn());
 
 	private String dateToString(Date date){
-		SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy-hh.mm.ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 		String result = formatter.format(date);
 		return result;
 	}

@@ -15,10 +15,10 @@
     <!-- ADD XML BELOW -->
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_transaction_id_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Transaction ID                                                      createdOn" />
+        android:text="Transaction ID" />
 
     <ListView
         android:id="@+id/content_products_listing"
@@ -34,8 +34,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="260dp"
+        android:text="Created On"/>
+    <TextView
+        android:id="@+id/text_created_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="260dp"
         android:layout_marginTop="20dp"
         android:text="@string/text_view_transaction_createdOn"/>
+
+    <TextView
+        android:id="@+id/text_transaction_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="250dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/text_view_transaction_createdOn"/>
+    <TextView
+        android:id="@+id/text_transaction_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="20dp"
+        android:text="@string/text_view_transaction_createdOn"/>
+
+    <TextView
+        android:id="@+id/text_transaction_amount_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="40dp"
+        android:text="Total Amount" />
 
     <Button
         android:layout_width="wrap_content"

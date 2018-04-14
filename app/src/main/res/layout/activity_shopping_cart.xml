@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_shopping_cart"
+    android:background="@drawable/nongmo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -19,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="30dp"
         android:onClick="cancelTransactionButtonOnClick"
         android:text="@string/cancel_transaction_button"
         android:textAlignment="center"/>

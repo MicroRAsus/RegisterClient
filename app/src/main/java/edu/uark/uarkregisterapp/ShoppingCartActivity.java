@@ -29,7 +29,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private Product temp = new Product();
     private EmployeeTransition employeeTransition;
     private TransactionTransition transactionTransition = new TransactionTransition();
-    private ArrayList<Product> cart = new ArrayList<Product>();
+    public ArrayList<Product> cart = new ArrayList<Product>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,7 +178,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
 
-    private void addCartItem(Product tempProduct)
+    public void addCartItem(Product tempProduct)
     {
         cart.add(tempProduct);
     }

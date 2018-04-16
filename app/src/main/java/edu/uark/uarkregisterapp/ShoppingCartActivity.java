@@ -30,6 +30,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private EmployeeTransition employeeTransition;
     private TransactionTransition transactionTransition = new TransactionTransition();
     public ArrayList<Product> cart = new ArrayList<Product>();
+    public static ArrayList<Product> summaryCart = new ArrayList<Product>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         this.getCartTotal().setText("Cost: $" + df.format(calculateCartCost()));
         this.getShoppingCartListView().setAdapter(this.productListAdapter);
     }
+
 
     @Override
     protected void onResume() {
@@ -69,6 +71,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     public void checkoutButtonOnClick(View view)
     {
 	    (new StoreTransactionOnServer()).execute();
+	    summaryCart = this.cart;
     }
     //^Austin Brown 3/30/18
     public void findItemsButtonOnClick(View view)
@@ -105,8 +108,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
 	    @Override
 	    protected void onPreExecute() {
 		    this.loadingTransactionDetailsFromServerAlert.show();
+            loadingTransactionDetailsFromServerAlert.dismiss(); //This solves WindowManager Error, but not all errors
 	    }
-	
+
 	    @Override
 	    protected Boolean doInBackground(Void... params) {
 		    Transaction transaction = new Transaction(transactionTransition);
@@ -120,7 +124,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 		    //Log.d("message", String.format("The value of transtype is: %s", transactionTransition.getTransType()));
 		    //Temporary for testing
 		    transactionTransition.setAmount(50.01);
-            transactionTransition.setCashierID(employeeTransition.getEmployeeID());
+            transactionTransition.setCashierID(employeeTransition.getEmployeeID()); //Debugger says this is null on second attempt for some reason
 		    //Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
 		
 		    return apiResponse.isValidResponse();

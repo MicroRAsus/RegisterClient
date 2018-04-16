@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -21,8 +20,6 @@ import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
-
-import static edu.uark.uarkregisterapp.R.id.edit_text_product_lookup_code;
 
 public class FindProductsActivity extends AppCompatActivity {
 
@@ -44,7 +41,7 @@ public class FindProductsActivity extends AppCompatActivity {
         this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ChangeQuantityActivity.class);
 
                 intent.putExtra(
                         getString(R.string.intent_extra_product),
@@ -120,15 +117,8 @@ public class FindProductsActivity extends AppCompatActivity {
 
     public void changeQuantityButtonOnClick(View view) {
         //Temporary Workaround Button for Russel to work on his Implementation of ChangeQuantityActivity.
-        //Need to use ProductTransition here to give the ProductID to Russel
-
         Intent intent = new Intent(this.getApplicationContext(), ChangeQuantityActivity.class);
         this.startActivity(intent);
-    }
-
-    private EditText productLookupCodeEditText()
-    {
-        return (EditText) this.findViewById(edit_text_product_lookup_code);
     }
 
     private List<Product> products;

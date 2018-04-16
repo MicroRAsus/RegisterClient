@@ -9,8 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
+import edu.uark.uarkregisterapp.adapters.ProductListAdapter;
 import edu.uark.uarkregisterapp.models.api.ApiResponse;
+import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.Transaction;
 import edu.uark.uarkregisterapp.models.api.TransactionConfirmation;
 import edu.uark.uarkregisterapp.models.api.services.StoreTransactionService;
@@ -18,13 +24,28 @@ import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
 public class ShoppingCartActivity extends AppCompatActivity {
-	
 
+    private ProductListAdapter productListAdapter;
+    private Product temp = new Product();
+    private EmployeeTransition employeeTransition;
+    private TransactionTransition transactionTransition = new TransactionTransition();
+    public ArrayList<Product> cart = new ArrayList<Product>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 	    this.employeeTransition = this.getIntent().getParcelableExtra("intent_extra_employee");
+	    Product temp = new Product();
+        //temporary items in cart to test ListView:
+        for(int i = 0; i < 5; i++)
+        {
+            addCartItem(temp);
+            cart.get(i).setCount((int)(Math.random() * 5));
+        }
+        this.productListAdapter = new ProductListAdapter(this, this.cart);
+        DecimalFormat df = new DecimalFormat("#.00");
+        this.getCartTotal().setText("Cost: $" + df.format(calculateCartCost()));
+        this.getShoppingCartListView().setAdapter(this.productListAdapter);
     }
 
     @Override
@@ -45,17 +66,38 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     }//^Austin Brown 3/30/18*/
 
-    public void checkoutButtonOnClick(View view){
+    public void checkoutButtonOnClick(View view)
+    {
 	    (new StoreTransactionOnServer()).execute();
     }
     //^Austin Brown 3/30/18
-    public void findItemsButtonOnClick(View view){
+    public void findItemsButtonOnClick(View view)
+    {
         Intent intent = new Intent(this.getApplicationContext(), FindProductsActivity.class);
         this.startActivity(intent);
     }
     //^Austin Brown 3/30/18
-    
-    
+    private ListView getShoppingCartListView()
+    {
+        return (ListView) this.findViewById(R.id.list_view_cart);
+    }
+
+    private double calculateCartCost()
+    {
+        double cartCost = 0.00;
+        for(Product temp: cart)
+        {
+            cartCost += temp.getPrice() * temp.getCount();
+        }
+        return cartCost;
+    }
+
+    private TextView getCartTotal()
+    {
+        return (TextView) this.findViewById(R.id.cart_total);
+    }
+
+
     
     
     private class StoreTransactionOnServer extends AsyncTask<Void, Void, Boolean> {
@@ -134,6 +176,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
 				    create();
 	    }
     }
-	    private EmployeeTransition employeeTransition;
-	    private TransactionTransition transactionTransition = new TransactionTransition();
+
+
+    public void addCartItem(Product tempProduct)
+    {
+        cart.add(tempProduct);
+    }
 }

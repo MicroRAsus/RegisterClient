@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
+import edu.uark.uarkregisterapp.ShoppingCartActivity;
 
 public class ChangeQuantityActivity extends AppCompatActivity {
 
@@ -37,8 +38,10 @@ public class ChangeQuantityActivity extends AppCompatActivity {
         if (this.validateInput())
         {
             this.productTransition.setCount(Integer.parseInt(this.setProductCountEditText().getText().toString()));
+            Product productToAdd = new Product(this.productTransition);
+
             Intent intent = new Intent(this.getApplicationContext(), ShoppingCartActivity.class);
-            //intent.putExtra("intent_extra_employee", this.productTransition);
+            intent.putExtra("intent_product_transition_extra", this.productTransition);
             this.startActivity(intent);
             return;
         }

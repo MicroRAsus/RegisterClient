@@ -21,6 +21,7 @@ import edu.uark.uarkregisterapp.models.api.Transaction;
 import edu.uark.uarkregisterapp.models.api.TransactionConfirmation;
 import edu.uark.uarkregisterapp.models.api.services.StoreTransactionService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
+import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
 public class ShoppingCartActivity extends AppCompatActivity {
@@ -53,6 +54,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        ProductTransition temp = this.getIntent().getParcelableExtra("intent_product_transition_extra");
+        Product product  = new Product(temp);
+        this.addCartItem(product);
+        //this.addCartItem(Product(this.getIntent().getParcelableExtra("intent_product_transition_updated")));
     }
 
     public void cancelTransactionButtonOnClick(View view){

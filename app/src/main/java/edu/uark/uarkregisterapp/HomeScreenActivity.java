@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Parcelable;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
+import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 import edu.uark.uarkregisterapp.models.api.Employee;
 
 
@@ -48,6 +49,9 @@ public class HomeScreenActivity extends AppCompatActivity {
                 getString(R.string.intent_extra_employee),
                 employeeTransition
         );
+        //THIS IS A TEST WORK AROUND
+        ProductTransition prod = new ProductTransition();
+        intent.putExtra("intent_product_transition_extra",prod);
         this.startActivity(intent);
         //Implemented by Austin
     }

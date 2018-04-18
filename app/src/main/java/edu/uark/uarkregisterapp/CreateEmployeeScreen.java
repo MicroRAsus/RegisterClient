@@ -49,7 +49,14 @@ public class CreateEmployeeScreen extends AppCompatActivity {
         {
             return;
         }
-        (new SaveCreatedEmployee()).execute();
+        (new CreateEmployeeTask()).execute(
+                (new Employee())
+                .setActive("active")
+                .setFirstName(this.getEmployeeFirstName().getText().toString())
+                .setLastName(this.getEmployeeLastName().getText().toString())
+                .setPassWord(this.getEmployeePassword().getText().toString())
+                .setManager("manager")
+        );
 
         //At this point it will only take you to the homescreenactivity.
         //Intent intent = new Intent(this.getApplicationContext(), TransactionStartActivity.class);
@@ -111,149 +118,46 @@ public class CreateEmployeeScreen extends AppCompatActivity {
                     create().
                     show();
         }
-
         return inputIsValid;
     }
     //Austin
-    private class SaveCreatedEmployee extends AsyncTask<Void, Void, Boolean>
-    {
+    private class CreateEmployeeTask extends AsyncTask<Employee, Void, ApiResponse<Employee>> {
         @Override
-        protected void onPreExecute()
-        {
-            this.savingEmployeeAlert.show();
+        protected void onPreExecute() {
+            this.createEmployeeAlert = new AlertDialog.Builder(CreateEmployeeScreen.this)
+                    .setMessage(R.string.alert_dialog_create_employee_validation_password_invalid)
+                    .create();
+            this.createEmployeeAlert.show();
         }
 
         @Override
-        protected Boolean doInBackground(Void... params)
-        {
-            int value = ((int)(Math.random()*9000)+1000);
-            String val = Integer.toString(value);
-            Employee employee = (new Employee()).
-                    setFirstName(getEmployeeFirstName().getText().toString()).
-                    setLastName(getEmployeeLastName().getText().toString()).
-                    setPassWord(getEmployeePassword().getText().toString()).
-                    setEmployeeID(val).
-                    setActive("1").
-                    setManager("0");
-            //Manager status and Active status currenty hardcoded above - Austin
-            ApiResponse<Employee> apiResponse = (
-                    (employee.getId().equals(new UUID(0, 0)))
-                            ? (new EmployeeService()).createEmployee(employee)
-                            : (new EmployeeService()).updateEmployee(employee)
+        protected ApiResponse<Employee> doInBackground(Employee... employees) {
+            if (employees.length > 0) {
+                return (new EmployeeService()).createEmployee(employees[0]);
+            } else {
+                return (new ApiResponse<Employee>())
+                        .setValidResponse(false);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(ApiResponse<Employee> apiResponse) {
+            this.createEmployeeAlert.dismiss();
+            if (!apiResponse.isValidResponse()) {
+                new AlertDialog.Builder(CreateEmployeeScreen.this)
+                        .setMessage(R.string.alert_dialog_employee_save_failure)
+                        .create()
+                        .show();
+                return;
+            }
+            Intent intent = new Intent(getApplicationContext(), HomeScreenActivity.class);
+            intent.putExtra(
+                    getString(R.string.intent_extra_employee)
+                    , new EmployeeTransition(apiResponse.getData())
             );
-            //This if needs to be invoked for 6 fields ? - Austin
-            //e.g. First, Last, Password, active, Employee ID, Manager
-            if (apiResponse.isValidResponse())
-            {
-
-                employeeTransition.setFirstName(apiResponse.getData().getFirstName());
-                employeeTransition.setLastName(apiResponse.getData().getLastName());
-                employeeTransition.setPassWord(apiResponse.getData().getPassWord());
-                employeeTransition.setActive(apiResponse.getData().getActive());
-                employeeTransition.setEmployeeID(apiResponse.getData().getEmployeeID());
-                employeeTransition.setManager(apiResponse.getData().getManager());
-            }
-
-            return apiResponse.isValidResponse();
+            startActivity(intent);
         }
-
-        @Override
-        protected void onPostExecute(Boolean successfulSave)
-        {
-            String message;
-
-            savingEmployeeAlert.dismiss();
-
-            if (successfulSave)
-            {
-                message = getString(R.string.alert_dialog_employee_save_success);
-            }
-            else
-            {
-                message = getString(R.string.alert_dialog_employee_save_failure);
-            }
-
-            new AlertDialog.Builder(CreateEmployeeScreen.this).
-                    setMessage(message).
-                    setPositiveButton(
-                            R.string.button_dismiss,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            }
-                    ).
-                    create().
-                    show();
-        }
-
-        private AlertDialog savingEmployeeAlert;
-
-        private SaveCreatedEmployee()
-        {
-            this.savingEmployeeAlert = new AlertDialog.Builder(CreateEmployeeScreen.this).
-                    setMessage(R.string.alert_dialog_employee_save).
-                    create();
-        }
-    }
-
-    private class DeleteEmployeeTask extends AsyncTask<Void, Void, Boolean>
-    {
-        @Override
-        protected void onPreExecute()
-        {
-            this.deletingEmployeeAlert.show();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params)
-        {
-            return (new EmployeeService())
-                    .deleteEmployee(employeeTransition.getId())
-                    .isValidResponse();
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean successfulSave)
-        {
-            String message;
-
-            deletingEmployeeAlert.dismiss();
-
-            if (successfulSave)
-            {
-                message = getString(R.string.alert_dialog_employee_delete_success);
-            }
-            else
-            {
-                message = getString(R.string.alert_dialog_employee_delete_failure);
-            }
-
-            new AlertDialog.Builder(CreateEmployeeScreen.this).
-                    setMessage(message).
-                    setPositiveButton(
-                            R.string.button_dismiss,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                    if (successfulSave) {
-                                        finish();
-                                    }
-                                }
-                            }
-                    ).
-                    create().
-                    show();
-        }
-
-        private AlertDialog deletingEmployeeAlert;
-
-        private DeleteEmployeeTask()
-        {
-            this.deletingEmployeeAlert = new AlertDialog.Builder(CreateEmployeeScreen.this).
-                    setMessage(R.string.alert_dialog_employee_delete).
-                    create();
-        }
+        private AlertDialog createEmployeeAlert;
     }
     private EmployeeTransition employeeTransition;
 }

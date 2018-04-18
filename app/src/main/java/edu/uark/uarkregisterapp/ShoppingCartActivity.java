@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +50,16 @@ public class ShoppingCartActivity extends AppCompatActivity {
         this.getShoppingCartListView().setAdapter(this.productListAdapter);
     }
 
+    @Override
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:  // Respond to the action bar's Up/Home button
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onResume() {
@@ -104,7 +115,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     
     
     private class StoreTransactionOnServer extends AsyncTask<Void, Void, Boolean> {
-	
+
 	    @Override
 	    protected void onPreExecute() {
 		    this.loadingTransactionDetailsFromServerAlert.show();
@@ -123,10 +134,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
             }
 		    //Log.d("message", String.format("The value of transtype is: %s", transactionTransition.getTransType()));
 		    //Temporary for testing
-		    transactionTransition.setAmount(50.01);
+            Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
+            transactionTransition.setAmount(50.01);
             transactionTransition.setCashierID(employeeTransition.getEmployeeID()); //Debugger says this is null on second attempt for some reason
-		    //Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
-		
+
 		    return apiResponse.isValidResponse();
 	    }
 	

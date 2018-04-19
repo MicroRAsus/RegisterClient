@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -51,11 +52,13 @@ public class CreateEmployeeScreen extends AppCompatActivity {
         }
         (new CreateEmployeeTask()).execute(
                 (new Employee())
-                .setActive("active")
+                .setActive("T")
                 .setFirstName(this.getEmployeeFirstName().getText().toString())
                 .setLastName(this.getEmployeeLastName().getText().toString())
                 .setPassWord(this.getEmployeePassword().getText().toString())
-                .setManager("manager")
+                .setManager(null)
+                .setEmployeeID("ID")
+                .setRole("GM")
         );
 
         //At this point it will only take you to the homescreenactivity.
@@ -125,7 +128,7 @@ public class CreateEmployeeScreen extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             this.createEmployeeAlert = new AlertDialog.Builder(CreateEmployeeScreen.this)
-                    .setMessage(R.string.alert_dialog_create_employee_validation_password_invalid)
+                    .setMessage("Creating Employee...")
                     .create();
             this.createEmployeeAlert.show();
         }

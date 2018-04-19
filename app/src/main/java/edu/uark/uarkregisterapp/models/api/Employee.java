@@ -146,9 +146,9 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
         this.first_name = "";
         this.last_name = "";
         this.employee_id = "";
-        this.active = "";
-        this.role = "";
-        this.manager = "";
+        this.active = "T";
+        this.role = "GM";
+        this.manager = null;
         this.password = "";
         this.id = new UUID(0,0);
         this.createdOn = new Date();

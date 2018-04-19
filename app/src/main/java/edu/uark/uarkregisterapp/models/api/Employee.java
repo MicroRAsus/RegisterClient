@@ -96,10 +96,10 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
 
     @Override
     public Employee loadFromJson(JSONObject rawJsonObject) {
-        String value = rawJsonObject.optString(EmployeeFieldName.ID.getFieldName());
+        /*String value = rawJsonObject.optString(EmployeeFieldName.ID.getFieldName());
         if (!StringUtils.isBlank(value)) {
             this.id = UUID.fromString(value);
-        }
+        }*/
 
         this.first_name = rawJsonObject.optString(EmployeeFieldName.FIRST_NAME.getFieldName());
         this.last_name = rawJsonObject.optString(EmployeeFieldName.LAST_NAME.getFieldName());
@@ -109,14 +109,14 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
         this.manager = rawJsonObject.optString(EmployeeFieldName.MANAGER.getFieldName());
         this.password = rawJsonObject.optString(EmployeeFieldName.PASSWORD.getFieldName());
 
-        value = rawJsonObject.optString(EmployeeFieldName.CREATED_ON.getFieldName());
+        /*value = rawJsonObject.optString(EmployeeFieldName.CREATED_ON.getFieldName());
         if (!StringUtils.isBlank(value)) {
             try {
                 this.createdOn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US).parse(value);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
         return this;
     }
@@ -126,15 +126,15 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put(EmployeeFieldName.ID.getFieldName(), this.id.toString());
             jsonObject.put(EmployeeFieldName.FIRST_NAME.getFieldName(), this.first_name);
             jsonObject.put(EmployeeFieldName.LAST_NAME.getFieldName(), this.last_name);
+            jsonObject.put(EmployeeFieldName.EMPLOYEE_ID.getFieldName(), this.employee_id);
+            //jsonObject.put(EmployeeFieldName.ID.getFieldName(), this.id.toString());
             jsonObject.put(EmployeeFieldName.ROLE.getFieldName(), this.role);
             jsonObject.put(EmployeeFieldName.ACTIVE.getFieldName(), this.active);
-            jsonObject.put(EmployeeFieldName.EMPLOYEE_ID.getFieldName(), this.employee_id);
             jsonObject.put(EmployeeFieldName.PASSWORD.getFieldName(), this.password);
             jsonObject.put(EmployeeFieldName.MANAGER.getFieldName(), this.manager);
-            jsonObject.put(EmployeeFieldName.CREATED_ON.getFieldName(), (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)).format(this.createdOn));
+            //jsonObject.put(EmployeeFieldName.CREATED_ON.getFieldName(), (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)).format(this.createdOn));
         } catch (JSONException e) {
             e.printStackTrace();
         }

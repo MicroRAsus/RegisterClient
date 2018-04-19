@@ -28,6 +28,7 @@ import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 public class ShoppingCartActivity extends AppCompatActivity {
 
     private ProductListAdapter productListAdapter;
+    private ProductTransition productTransition;
     private Product temp = new Product();
     private EmployeeTransition employeeTransition;
     private TransactionTransition transactionTransition = new TransactionTransition();
@@ -38,13 +39,15 @@ public class ShoppingCartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 	    this.employeeTransition = this.getIntent().getParcelableExtra("intent_extra_employee");
+	    //this.productTransition = this.getIntent().getParcelableExtra("intent_extra_product");
 	    Product temp = new Product();
         //temporary items in cart to test ListView:
-        for(int i = 0; i < 5; i++)
+        /*for(int i = 0; i < 5; i++)
         {
             addCartItem(temp);
             cart.get(i).setCount((int)(Math.random() * 5));
-        }
+        }*/
+        Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s", transactionTransition.getProductArrayList()));
         this.productListAdapter = new ProductListAdapter(this, this.cart);
         DecimalFormat df = new DecimalFormat("#.00");
         this.getCartTotal().setText("Cost: $" + df.format(calculateCartCost()));
@@ -68,6 +71,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         ProductTransition temp = this.getIntent().getParcelableExtra("intent_product_transition_extra");
         Product product  = new Product(temp);
         this.addCartItem(product);
+        //this.getShoppingCartListView().setAdapter(this.productListAdapter);
         //this.addCartItem(Product(this.getIntent().getParcelableExtra("intent_product_transition_updated")));
     }
 
@@ -93,6 +97,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     public void findItemsButtonOnClick(View view)
     {
         Intent intent = new Intent(this.getApplicationContext(), FindProductsActivity.class);
+        //Get employee data to transfer too
         this.startActivity(intent);
     }
     //^Austin Brown 3/30/18
@@ -141,8 +146,11 @@ public class ShoppingCartActivity extends AppCompatActivity {
 		    //Temporary for testing
             Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
             transactionTransition.setAmount(50.01);
-            transactionTransition.setCashierID(employeeTransition.getEmployeeID()); //Debugger says this is null on second attempt for some reason
 
+            //Temporary fix to NPE (If anyone knows how to fix it, that would be great...)
+            if(employeeTransition != null) {
+                transactionTransition.setCashierID(employeeTransition.getEmployeeID()); //Debugger says this is null on second attempt for some reason
+            }
 		    return apiResponse.isValidResponse();
 	    }
 	

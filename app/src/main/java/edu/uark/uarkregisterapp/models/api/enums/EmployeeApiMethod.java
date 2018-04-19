@@ -10,7 +10,8 @@ package edu.uark.uarkregisterapp.models.api.enums;
 
 public enum EmployeeApiMethod implements PathElementInterface {
     NONE(""),
-    BY_EMPLOYEE_ID("byEmployeeId");
+    BY_EMPLOYEE_ID("byEmployeeId"),
+    EMPLOYEE_CREATE("EmployeeCreate");
 
     @Override
     public String getPathValue() {

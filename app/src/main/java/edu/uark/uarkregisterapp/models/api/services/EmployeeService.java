@@ -21,6 +21,7 @@ import edu.uark.uarkregisterapp.models.api.enums.EmployeeApiMethod;
 import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 
 public class EmployeeService extends BaseRemoteService {
+    String trash;
     public ApiResponse<Employee> getEmployee(UUID employeeId) {
         return this.readEmployeeDetailsFromResponse(
                 this.<Employee>performGetRequest(
@@ -76,7 +77,7 @@ public class EmployeeService extends BaseRemoteService {
     public ApiResponse<Employee> createEmployee(Employee employee) {
         return this.readEmployeeDetailsFromResponse(
                 this.<Employee>performPostRequest(
-                        this.buildPath()
+                        this.buildPath((new PathElementInterface[] { EmployeeApiMethod.EMPLOYEE_CREATE}), trash)
                         , employee.convertToJson()
                 )
         );

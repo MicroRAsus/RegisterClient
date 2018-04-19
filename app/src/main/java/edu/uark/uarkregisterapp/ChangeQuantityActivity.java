@@ -2,6 +2,7 @@ package edu.uark.uarkregisterapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.TextView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 
 import edu.uark.uarkregisterapp.models.api.Product;
+import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 import edu.uark.uarkregisterapp.ShoppingCartActivity;
 
@@ -37,11 +39,16 @@ public class ChangeQuantityActivity extends AppCompatActivity {
     public void saveButtonOnClick(View view) {
         if (this.validateInput())
         {
+
             this.productTransition.setCount(Integer.parseInt(this.setProductCountEditText().getText().toString()));
             Product productToAdd = new Product(this.productTransition);
 
             Intent intent = new Intent(this.getApplicationContext(), ShoppingCartActivity.class);
             intent.putExtra("intent_product_transition_extra", this.productTransition);
+            /*intent.putExtra(
+                    getString(R.string.intent_extra_employee),
+                    employeeTransition
+            );*/
             this.startActivity(intent);
             return;
         }

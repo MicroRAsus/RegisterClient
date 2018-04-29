@@ -69,4 +69,8 @@
     <string name="change_items_button">Find Items</string>
     <string name="find_items_button">Find Items</string>
     <string name="change_quantity_button">Add/Remove Product</string>
+    <string name="intent_extra_transaction_transition_FindProductsActivity">intent_extra_transaction_transition_FindProductsActivity</string>
+    <string name="intent_extra_transaction_transition_ShoppingCartActivity">intent_extra_transaction_transition_ShoppingCartActivity</string>
+    <string name="intent_extra_transaction_transition_from_ShoppingCartActivity">intent_extra_transaction_transition_from_ShoppingCartActivity</string>
+    <string name="intent_extra_product_FindProductsActivity">intent_extra_product_FindProductsActivity</string>
 </resources>

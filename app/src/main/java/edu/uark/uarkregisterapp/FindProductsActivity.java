@@ -3,11 +3,10 @@ package edu.uark.uarkregisterapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,6 +19,7 @@ import edu.uark.uarkregisterapp.models.api.ApiResponse;
 import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
+import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
 public class FindProductsActivity extends AppCompatActivity {
 
@@ -36,7 +36,8 @@ public class FindProductsActivity extends AppCompatActivity {
 
         this.products = new ArrayList<>();
         this.productListAdapter = new ProductListAdapter(this, this.products);
-
+        this.transactionTransition = this.getIntent().getParcelableExtra("intent_extra_transaction_transition_from_ShoppingCartActivity");
+        
         this.getProductsListView().setAdapter(this.productListAdapter);
         this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -44,8 +45,12 @@ public class FindProductsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ChangeQuantityActivity.class);
 
                 intent.putExtra(
-                        getString(R.string.intent_extra_product),
+                        getString(R.string.intent_extra_product_FindProductsActivity),
                         new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
+                );
+                intent.putExtra(
+                		getString(R.string.intent_extra_transaction_transition_FindProductsActivity),
+		                transactionTransition
                 );
 
                 startActivity(intent);
@@ -115,12 +120,13 @@ public class FindProductsActivity extends AppCompatActivity {
         }
     }
 
-    public void changeQuantityButtonOnClick(View view) {
-        //Temporary Workaround Button for Russel to work on his Implementation of ChangeQuantityActivity.
-        Intent intent = new Intent(this.getApplicationContext(), ChangeQuantityActivity.class);
-        this.startActivity(intent);
-    }
+//    public void changeQuantityButtonOnClick(View view) {
+//        //Temporary Workaround Button for Russel to work on his Implementation of ChangeQuantityActivity.
+//        Intent intent = new Intent(this.getApplicationContext(), ChangeQuantityActivity.class);
+//        this.startActivity(intent);
+//    }
 
     private List<Product> products;
     private ProductListAdapter productListAdapter;
+    private TransactionTransition transactionTransition;
 }

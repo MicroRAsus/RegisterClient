@@ -1,5 +1,8 @@
 package edu.uark.uarkregisterapp.models.api;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
@@ -15,8 +18,9 @@ import edu.uark.uarkregisterapp.models.api.fields.ProductFieldName;
 import edu.uark.uarkregisterapp.models.api.interfaces.ConvertToJsonInterface;
 import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
+import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
-public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Product> {
+public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Product>, Parcelable {
 	private UUID id; //Product ID
 	public UUID getId() {
 		return this.id;
@@ -99,12 +103,39 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 
 		return jsonObject;
 	}
+	
+	
+	@Override
+	public void writeToParcel(Parcel destination, int flags) {
+		//destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
+		destination.writeSerializable(this.id);
+		destination.writeString(lookupCode);
+		destination.writeInt(count);
+		destination.writeDouble(this.price);
+		destination.writeLong(this.createdOn.getTime());
+	}
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>() {
+		public Product createFromParcel(Parcel productParcel) {
+			return new Product(productParcel);
+		}
+		
+		public Product[] newArray(int size) {
+			return new Product[size];
+		}
+	};
+	
 
 	public Product() {
-		this.count = -1;
-		this.lookupCode = "";
+		this.count = -2;
+		this.lookupCode = "Test_default_value";
 		this.id = new UUID(0, 0);
-		this.price = -1.00;
+		this.price = -1.01;
 		this.createdOn = new Date();
 	}
 
@@ -114,5 +145,14 @@ public class Product implements ConvertToJsonInterface, LoadFromJsonInterface<Pr
 		this.createdOn = productTransition.getCreatedOn();
 		this.price = productTransition.getPrice();
 		this.lookupCode = productTransition.getLookupCode();
+	}
+	
+	public Product(Parcel productParcel){
+		//this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(productParcel.createByteArray()).execute();
+		this.id = (UUID)productParcel.readSerializable();
+		this.lookupCode = productParcel.readString();
+		this.count = productParcel.readInt();
+		this.price = productParcel.readDouble();
+		this.createdOn = new Date(productParcel.readLong());
 	}
 }

@@ -88,6 +88,12 @@ public class TransactionTransition implements Parcelable{
         this.productArrayList = arrayList;
         return this;
     }
+    
+    public TransactionTransition addProduct(Product product)
+    {
+        this.productArrayList.add(product);
+        return this;
+    }
 
     @Override
     public void writeToParcel(Parcel destination, int flags) {

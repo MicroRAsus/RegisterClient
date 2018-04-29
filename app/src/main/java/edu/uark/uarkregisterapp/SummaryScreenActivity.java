@@ -31,7 +31,7 @@ public class SummaryScreenActivity extends AppCompatActivity {
 		//Log.d("message", String.format("The value of transtype is: %s", transactionTransition.getTransType()));
 		Log.d("message",String.format("These are the fields of the TransactionTransition object:\ncashiedid: %s\namount: %s\ntranstype: %s\nreferenceid: %s\nrecordID: %s\ncreatedOn: %s", transactionTransition.getCashierID(), transactionTransition.getAmount(), transactionTransition.getTransType(), transactionTransition.getReferenceID(), transactionTransition.getRecordID(), transactionTransition.getCreatedOn()));
 		this.createdOn = this.transactionTransition.getCreatedOn();
-		this.refId = this.transactionTransition.getReferenceID();
+		this.refId = this.transactionTransition.getRecordID();
 		this.amount = this.transactionTransition.getAmount();
 		this.productListAdapter = new ProductListAdapter(this, ShoppingCartActivity.summaryCart);
 		this.getSummaryListView().setAdapter(this.productListAdapter);
@@ -68,6 +68,7 @@ public class SummaryScreenActivity extends AppCompatActivity {
 		DecimalFormat decimalFormat = new DecimalFormat("#.00");
 		this.getAmountTextView().setText(decimalFormat.format(this.amount));
 		this.productListAdapter = new ProductListAdapter(this, ShoppingCartActivity.summaryCart);
+		//this.productListAdapter = new ProductListAdapter(this, transactionTransition.getProductArrayList());
 		this.getSummaryListView().setAdapter(this.productListAdapter);
 	}
 	//^Austin Brown 3/30/18

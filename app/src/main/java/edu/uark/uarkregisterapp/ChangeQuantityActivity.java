@@ -19,6 +19,7 @@ import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 import edu.uark.uarkregisterapp.ShoppingCartActivity;
+import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
 public class ChangeQuantityActivity extends AppCompatActivity {
 
@@ -27,7 +28,8 @@ public class ChangeQuantityActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_quantity);
-        this.productTransition = this.getIntent().getParcelableExtra("intent_extra_product");
+        this.productTransition = this.getIntent().getParcelableExtra("intent_extra_product_FindProductsActivity");
+        this.transactionTransition = this.getIntent().getParcelableExtra("intent_extra_transaction_transition_FindProductsActivity");
     }
     @Override
     protected void onResume(){
@@ -42,13 +44,20 @@ public class ChangeQuantityActivity extends AppCompatActivity {
 
             this.productTransition.setCount(Integer.parseInt(this.setProductCountEditText().getText().toString()));
             Product productToAdd = new Product(this.productTransition);
-
+            //Log.d("message", String.format("The count is: %d", productTransition.getCount()));
+            //productToAdd = new Product();
+            //transactionTransition.addProduct(productToAdd);
+            ArrayList<Product> temp = transactionTransition.getProductArrayList();
+            temp.add(productToAdd);
+            transactionTransition.setProductArray(temp);
+            Log.d("message", String.format("The count in the arraylist: %d", transactionTransition.getProductArrayList().get(transactionTransition.getProductArrayList().size()-1).getCount()));
             Intent intent = new Intent(this.getApplicationContext(), ShoppingCartActivity.class);
-            intent.putExtra("intent_product_transition_extra", this.productTransition);
+            //intent.putExtra("intent_product_transition_extra", this.productTransition);
             /*intent.putExtra(
                     getString(R.string.intent_extra_employee),
                     employeeTransition
             );*/
+            intent.putExtra("intent_extra_transaction_transition_to_ShoppingCartActivity", this.transactionTransition);
             this.startActivity(intent);
             return;
         }
@@ -115,5 +124,6 @@ public class ChangeQuantityActivity extends AppCompatActivity {
 
         return inputIsValid;
     }
-
+    
+    private TransactionTransition transactionTransition = new TransactionTransition();
 }

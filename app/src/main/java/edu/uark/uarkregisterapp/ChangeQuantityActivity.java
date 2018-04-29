@@ -24,39 +24,34 @@ import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 public class ChangeQuantityActivity extends AppCompatActivity {
 
     private ProductTransition productTransition;
+    private double price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_quantity);
         this.productTransition = this.getIntent().getParcelableExtra("intent_extra_product_FindProductsActivity");
         this.transactionTransition = this.getIntent().getParcelableExtra("intent_extra_transaction_transition_FindProductsActivity");
+        price = this.productTransition.getPrice();
     }
     @Override
     protected void onResume(){
-        //print the product lookup code on top of acitivty
         super.onResume();
         this.setProductIDTextView().setText(this.productTransition.getLookupCode());
+        this.setProductPriceTextView().setText(doubleToString(this.productTransition.getPrice()));
     }
-
+    public String doubleToString(Double d){
+        return d.toString();
+    }
     public void saveButtonOnClick(View view) {
         if (this.validateInput())
         {
 
             this.productTransition.setCount(Integer.parseInt(this.setProductCountEditText().getText().toString()));
             Product productToAdd = new Product(this.productTransition);
-            //Log.d("message", String.format("The count is: %d", productTransition.getCount()));
-            //productToAdd = new Product();
-            //transactionTransition.addProduct(productToAdd);
             ArrayList<Product> temp = transactionTransition.getProductArrayList();
             temp.add(productToAdd);
             transactionTransition.setProductArray(temp);
-            Log.d("message", String.format("The count in the arraylist: %d", transactionTransition.getProductArrayList().get(transactionTransition.getProductArrayList().size()-1).getCount()));
             Intent intent = new Intent(this.getApplicationContext(), ShoppingCartActivity.class);
-            //intent.putExtra("intent_product_transition_extra", this.productTransition);
-            /*intent.putExtra(
-                    getString(R.string.intent_extra_employee),
-                    employeeTransition
-            );*/
             intent.putExtra("intent_extra_transaction_transition_to_ShoppingCartActivity", this.transactionTransition);
             this.startActivity(intent);
             return;
@@ -76,15 +71,13 @@ public class ChangeQuantityActivity extends AppCompatActivity {
                         create().
                         show();
             }
-
-        //This is your job russel(Cmon Austin you know you how to spell my name Russell), make a save button and have it add items to cart
-        //I have done the rest for you. The arrayList is in ShoppingCartActivity.
     }
-
     private EditText setProductCountEditText() {
         return (EditText) this.findViewById(R.id.edit_text_set_product_count);
     }
-
+    private TextView setProductPriceTextView(){
+        return (TextView) this.findViewById(R.id.text_view_product_price);
+    }
     private TextView setProductIDTextView(){
         return (TextView) this.findViewById(R.id.text_view_product_lookup_code);
     }
@@ -96,7 +89,6 @@ public class ChangeQuantityActivity extends AppCompatActivity {
             validationMessage = this.getString(R.string.validation_product_count);
             inputIsValid = false;
         }
-
         try {
             if (Integer.parseInt(this.setProductCountEditText().getText().toString()) < 0) {
                 validationMessage = this.getString(R.string.validation_product_count);
@@ -106,7 +98,6 @@ public class ChangeQuantityActivity extends AppCompatActivity {
             validationMessage = this.getString(R.string.validation_product_count);
             inputIsValid = false;
         }
-
         if (!inputIsValid) {
             new AlertDialog.Builder(this).
                     setMessage(validationMessage).
@@ -121,9 +112,7 @@ public class ChangeQuantityActivity extends AppCompatActivity {
                     create().
                     show();
         }
-
         return inputIsValid;
     }
-    
     private TransactionTransition transactionTransition = new TransactionTransition();
 }
